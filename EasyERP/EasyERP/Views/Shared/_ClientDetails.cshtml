@@ -1,0 +1,66 @@
+﻿@model EasyERP.Models.Client
+
+@Ajax.ActionLink("Edytuj dane", "EditClientAsync", "Clients", new { id = @Model.ClientId },
+        new AjaxOptions
+        {
+            UpdateTargetId = "AddEdit",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "Get"
+        }, new { @class = "button" })
+
+<table class="edit">
+    <tr>
+        <td>Nazwa firmy</td>
+        <td>@Html.DisplayFor(m => m.Company)</td>
+        <td>Kod firmy</td>
+        <td>@Html.DisplayFor(m => m.CompanyCode)</td>
+    </tr>
+    <tr>
+        <td>Imię</td>
+        <td>
+            @Html.DisplayFor(m => m.FirstName)
+        </td>
+        <td>Nazwisko</td>
+        <td>
+            @Html.DisplayFor(m => m.LastName)
+        </td>
+    </tr>
+    <tr>
+        <td>Telefon</td>
+        <td>@Html.DisplayFor(m => m.Phone)</td>
+        <td>E-mail</td>
+        <td>@Html.DisplayFor(m => m.EmailAddress)</td>
+    </tr>
+    <tr>
+        <td>REGON</td>
+        <td>@Html.DisplayFor(m => m.Regon)</td>
+        <td>NIP</td>
+        <td>@Html.DisplayFor(m => m.Nip)</td>
+    </tr>
+    <tr>
+        <td>Adres</td>
+        <td>@Html.DisplayFor(m => m.Address)</td>
+        <td>Strona internetowa</td>
+        <td>@Html.DisplayFor(m => m.WebSiteAddress)</td>
+    </tr>
+    <tr>
+        <td>Miasto</td>
+        <td>@Html.DisplayFor(m => m.City)</td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>Kod pocztowy</td>
+        <td>@Html.DisplayFor(m => m.CountryCode)</td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>Województwo</td>
+        <td>@Html.DisplayFor(m => m.Region)</td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>Kraj</td>
+        <td>@Html.DisplayFor(m => m.Country)</td>
+        <td colspan="2"></td>
+    </tr>
+</table>

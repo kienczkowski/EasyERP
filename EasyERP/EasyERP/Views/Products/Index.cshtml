@@ -1,0 +1,93 @@
+﻿@model IEnumerable<EasyERP.Models.Product>
+
+@{
+    ViewBag.Title = "Magazyn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="produkty" class="mag">
+    <h1 class="bold">Magazyn</h1>
+    @Html.ActionLink("Dodaj produkt", "Create", "", htmlAttributes: new { @class="button dodaj" })
+    <table class="magazyn">
+        <thead>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Code)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ListPrice)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.QuantityPackage)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Category)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Description)
+                </td>
+                <td>Edytuj/Usuń</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchasePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuantityPackage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edycja", "Edit", new { id = item.ProductId }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ProductId }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ProductId })
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5">
+                    <form method="get">
+                        <a href="#" id="wstecz"></a>
+                        <input type="text" value="1" name="page"><span>/ 5</span>
+                        <a href="#" id="dalej"></a>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

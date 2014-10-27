@@ -1,0 +1,91 @@
+﻿@model EasyERP.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Delete", "Products", new { id = Model.ProductId }, FormMethod.Post, htmlAttributes: new { @id = "produkty" }))
+{
+        @Html.AntiForgeryToken()
+        <h1 class="bold">Usuń produkt</h1>
+        @Html.ActionLink("Anuluj", "Index", "Products", "", htmlAttributes: new { @class = "button" })
+        <input type="submit" value="Usuń" class="button zapisz transition" />
+        <table class="edit">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ListPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ListPrice, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td rowspan="5">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td rowspan="5">
+                    @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PurchasePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PurchasePrice, new { htmlAttributes = new { @class = "form-control" } })
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.QuantityPackage, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.QuantityPackage, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+        </table>
+}

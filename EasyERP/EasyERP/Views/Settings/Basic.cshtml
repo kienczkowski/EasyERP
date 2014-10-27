@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Ustawienia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="dane-konta">
+    <h1 class="bold">
+        @Ajax.ActionLink("Użytkownicy", "SettingsUsers", new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+        @Ajax.ActionLink("Ustawienia firmy", "SettingsCompany", new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+        @Ajax.ActionLink("Zmień hasło", "SettingsPassword", new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+    </h1>
+</div>
+<div id="settings">
+
+</div>
+

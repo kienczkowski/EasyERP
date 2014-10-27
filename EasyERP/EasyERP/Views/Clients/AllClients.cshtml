@@ -1,0 +1,44 @@
+﻿@model PagedList.IPagedList<EasyERP.Models.Client>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Klienci";
+}
+
+<div id="klienci">
+    <h1>Moi klienci (<span class="ilosc">@Model.Count</span>)</h1>
+    <a href="#" id="wszystkie" class="button">Pokaż wszystkie</a>
+    @Html.ActionLink("Dodaj klienta", "AddClient", "Clients", htmlAttributes: new { @id = "wszystkie", @class = "button dodaj-klienta" })
+    <table>
+        <thead>
+            @Html.Partial("_ClientHead")
+        </thead>
+        <tbody>
+            @foreach (EasyERP.Models.Client client in Model)
+            {
+                <tr>
+                    <td>@client.ClientId</td>
+                    <td>@Html.ActionLink(client.Company, "DetailsClient", "Clients", new { id = client.ClientId }, null)</td>
+                    <td>@client.FirstName</td>
+                    <td>@client.LastName</td>
+                    <td>@client.Address</td>
+                    <td>@client.City</td>
+                    <td>@client.Region</td>
+                    <td>@client.CountryCode</td>
+                    <td>@client.Country</td>
+                    <td>@client.Phone</td>
+                    <td>@client.EmailAddress</td>
+                    <td><a href="#" class="zloz-oferte">Złóż ofertę</a></td>
+                    <td><a href="#" class="zestawienia-zamowien">Zestawienia zamówień</a></td>
+                </tr>
+            }
+            <tr>
+                <td colspan="13" align="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("AllClients", new { page }))
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

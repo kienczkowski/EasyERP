@@ -1,0 +1,76 @@
+﻿@model IEnumerable<EasyERP.Models.User>
+
+<div id="produkty">
+    <h1 class="bold min-padding">Lista użytkowników</h1>
+    <table class="ustawienia">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RememberMe)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnteredOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RememberMe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnteredOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Zmień", "Edit", new { id = item.UserId }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.UserId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@using (@Html.BeginForm("AddUser", "Settings", FormMethod.Post, htmlAttributes: new { @id = "operacje", @class = "dodaj-uzytkownika" }))
+{
+    if (ViewBag.User != null)
+    {
+        var user = (EasyERP.Models.User)ViewBag.User;
+        <h2 class="bold">Dodaj użytkownika</h2>
+        @Html.TextBox("loginn", user.Name)
+        @Html.TextBox("haslo1", user.Password)
+        @Html.TextBox("haslo2", user.Password)
+        @Html.TextBox("imie", user.FirstName)
+        @Html.TextBox("nazwisko", user.LastName)
+        @Html.TextBox("email", user.Email)
+        <input type="submit" class="ust" value="Dodaj użytkownika">
+    }
+}

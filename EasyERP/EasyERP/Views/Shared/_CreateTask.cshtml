@@ -1,0 +1,23 @@
+﻿@model EasyERP.Models.Task
+
+@using (Html.BeginForm("AddTask", "Dashboard", FormMethod.Post, htmlAttributes: new { @id = "data", @class = "dark" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Dodaj zadanie</h3>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.DropDownListFor(model => model.TaskType, new SelectList((System.Collections.IEnumerable)ViewData["TaskType"], "Value", "Text"), htmlAttributes: new { @name="typ-zadania" })
+    @Html.ValidationMessageFor(model => model.TaskType, "", new { @class = "text-danger" })
+
+    @Html.DropDownListFor(model => model.Priority, new SelectList((System.Collections.IEnumerable)ViewData["Priority"], "Value", "Text"), htmlAttributes: new { @name = "priorytet" })
+    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+    
+    @Html.HiddenFor(model => model.TaskDate, new { htmlAttributes = new { @name = "data" } })
+    @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+    <div>
+        @Html.TextBoxFor(model => model.TaskDate, htmlAttributes: new { @name = "data" })
+    </div>
+    @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @name = "opis" } })
+    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    <input type="submit" value="Dodaj zadanie" class="transition">
+}

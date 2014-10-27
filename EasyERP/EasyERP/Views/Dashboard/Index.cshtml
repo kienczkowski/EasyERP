@@ -1,0 +1,14 @@
+﻿@model IEnumerable<EasyERP.Models.Task>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div id="zadania">
+    <h1>Zadania do wykonania</h1>
+    @Html.ActionLink("Pokaż wszystkie", "Index", "Dashboard", "", htmlAttributes: new { @class = "button" })
+    <div id="allTask">
+        @Html.Partial("_AllTask", @Model)
+    </div>
+</div>
+@Html.Partial("_Calendar")

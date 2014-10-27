@@ -1,0 +1,65 @@
+﻿@model IEnumerable<EasyERP.Models.Order>
+
+@{
+    ViewBag.Title = "Zamówienia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="zamowienia">
+    <h1 class="bold">Zamówienia</h1>
+    <a href="#" class="button">Pokaż wszystkie</a>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Seller)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchasePrice)
+                </th>
+                <th>Edytuj/Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var item in Model)
+           {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seller)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edycja", "Edit", new { id = item.OrderId }) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.OrderId }) |
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.OrderId })
+                </td>
+            </tr>
+           }
+        </tbody>
+    </table>
+</div>

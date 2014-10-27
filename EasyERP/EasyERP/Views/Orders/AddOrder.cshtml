@@ -1,0 +1,101 @@
+﻿@model EasyERP.Models.HelpModels.AddOrderProducts
+
+@{
+    ViewBag.Title = "Dodawanie zamówienia";
+}
+
+@using(Html.BeginForm())
+{
+    <div id="produkty">
+        <h1 class="bold">Utwórz zamówienie</h1>
+        @Html.HiddenFor(model => model.ClientId)
+        <a id="open-dialog" href="#" class="button">Dodaj produkt</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Produkty</th>
+                    <th>Ilość</th>
+                    <th>Cena</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EasyERP.Models.Product product in @Model.Basket)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Amount</td>
+                        <td>@product.PurchasePrice</td>
+                        <td class="akcja"><a href="#" class="true"></a><a href="#" class="false"></a><a href="#" class="delete"></a></td>
+                    </tr>
+                }
+                <tr class="empty">
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="operacje">
+        <h2 class="bold">Operacje</h2>
+        <a href="#">Generuj ofertę</a>
+        <a href="#" onclick="document.forms[1].submit();return false;">Stwórz zamówienie</a>
+    </div>
+    <div class="clr"></div>
+    <div id="zamowienia">
+        <h1 class="bold">Lista zamówień<a href="#">Wygenerowane oferty</a></h1>
+        <a href="#" class="button">Pokaż wszystkie</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numer zamówienia</th>
+                    <th>Sprzedawca przyjmujący</th>
+                    <th>Data utworzenia</th>
+                    <th>Data zakończenia</th>
+                    <th>Cenia netto/brutto</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EasyERP.Models.Order order in @Model.Orders)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.Seller</td>
+                        <td>@order.StartDate</td>
+                        <td>@order.EndDate</td>
+                        <td>1400 zł / 2500 zł</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="5">
+                        <form method="get">
+                            <a href="#" id="wstecz"></a>
+                            <input type="text" value="1" name="page"><span>/ 5</span>
+                            <a href="#" id="dalej"></a>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="addProduct-modalPopUp">
+        <table>
+            @foreach (EasyERP.Models.Product product in @Model.Products)
+            {
+                <tr>
+                    <td>
+                        @product.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink("Dodaj", "AddProductToBasket", "Orders", new { ProductId = product.ProductId, ClientId = Model.ClientId }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+

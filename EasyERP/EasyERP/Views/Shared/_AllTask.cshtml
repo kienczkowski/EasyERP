@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EasyERP.Models.Task>
+
+<table id="lista">
+    <thead>
+        <tr>
+            <th><span>Zadania skończone</span><span class="skonczone">15 %</span><div id="canvas-holder-1"><canvas id="chart-area-1" width="50" height="50" /></div></th>
+            <th><span>Zadania nieskończone</span><span class="nie-skonczone">75 %</span><div id="canvas-holder-2"><canvas id="chart-area-2" width="50" height="50" /></div></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EasyERP.Models.Task item in Model)
+        {
+            <tr>
+                <td colspan="2">
+                    @foreach (SelectListItem type in (System.Collections.IEnumerable)ViewData["TaskType"])
+                    {
+                        if (item.TaskType.ToString() == type.Value)
+                        {
+                            var className = String.Empty;
+                            switch (item.TaskType)
+                            {
+                                case 1:
+                                    className = "wazne";
+
+                                    break;
+                                case 2:
+                                    className = "pilne";
+                                    break;
+                                case 3:
+                                    className = "przypomienie";
+                                    break;
+                                case 4:
+                                    className = "spoznione";
+                                    break;
+                            }
+                            <span class=@className>@type.Text</span>
+                            break;
+                        }
+                    }
+                    @foreach (SelectListItem type in (System.Collections.IEnumerable)ViewData["Priority"])
+                    {
+                        if (item.Priority.ToString() == type.Value)
+                        {
+                            var className = String.Empty;
+                            switch (item.Priority)
+                            {
+                                case 1:
+                                    className = "wazne";
+
+                                    break;
+                                case 2:
+                                    className = "pilne";
+                                    break;
+                                case 3:
+                                    className = "przypomienie";
+                                    break;
+                                case 4:
+                                    className = "spoznione";
+                                    break;
+                            }
+                            <span class=@className>@type.Text</span>
+                            break;
+                        }
+                    }
+                    <span class="opis">@item.Description</span>
+                    <span class="data">@item.TaskDate</span>
+                    @Ajax.ActionLink("Wybierz", "SelectTask",  new { @taskId = item.TaskId }, new AjaxOptions { UpdateTargetId = "allTask", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

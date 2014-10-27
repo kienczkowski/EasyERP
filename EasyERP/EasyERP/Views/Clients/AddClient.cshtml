@@ -1,0 +1,18 @@
+﻿@model EasyERP.Models.Client
+
+@{
+    ViewBag.Title = "Dodaj klienta";
+}
+@using (Html.BeginForm("AddClient", "Clients", FormMethod.Post))
+{
+    <div id="dane-konta">
+        <h1 class="bold">Dane adresowe</h1>
+        @Html.Partial("_ClientAddEdit")
+    </div>
+    <div id="notatka">
+        <h2 class="bold">Zostaw notatkę</h2>
+        @Html.TextAreaFor(m => m.Notes.ToList()[0].Description)
+    </div>
+    
+    @Html.ValidationSummary()
+}

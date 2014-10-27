@@ -1,0 +1,67 @@
+﻿@model EasyERP.Models.Client
+
+@if (Model != null)
+{
+    @Html.ActionLink("Anuluj", "DetailsClient", "Clients", new { id = Model.ClientId }, htmlAttributes: new { @class = "button" })
+}
+else
+{
+    @Html.ActionLink("Anuluj", "AllClients", "", htmlAttributes: new { @class = "button" })
+}
+<input type="submit" value="Zapisz" class="button zapisz transition">
+<table>
+    <tr>
+        <td>Nazwa firmy</td>
+        <td>@Html.EditorFor(m => m.Company)</td>
+        <td>Kod firmy</td>
+        <td>@Html.EditorFor(m => m.CompanyCode)</td>
+    </tr>
+    <tr>
+        <td>Imię</td>
+        <td>
+            @Html.EditorFor(m => m.FirstName)
+        </td>
+        <td>Nazwisko</td>
+        <td>
+            @Html.EditorFor(m => m.LastName)
+        </td>
+    </tr>
+    <tr>
+        <td>Telefon</td>
+        <td>@Html.EditorFor(m => m.Phone)</td>
+        <td>E-mail</td>
+        <td>@Html.EditorFor(m => m.EmailAddress)</td>
+    </tr>
+    <tr>
+        <td>REGON</td>
+        <td>@Html.EditorFor(m => m.Regon)</td>
+        <td>NIP</td>
+        <td>@Html.EditorFor(m => m.Nip)</td>
+    </tr>
+    <tr>
+        <td>Adres</td>
+        <td>@Html.EditorFor(m => m.Address)</td>
+        <td>Strona internetowa</td>
+        <td>@Html.EditorFor(m => m.WebSiteAddress)</td>
+    </tr>
+    <tr>
+        <td>Miasto</td>
+        <td>@Html.EditorFor(m => m.City)</td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>Kod pocztowy</td>
+        <td>@Html.EditorFor(m => m.CountryCode)</td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>Województwo</td>
+        <td>@Html.EditorFor(m => m.Region)</td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>Kraj</td>
+        <td>@Html.EditorFor(m => m.Country)</td>
+        <td colspan="2"></td>
+    </tr>
+</table>

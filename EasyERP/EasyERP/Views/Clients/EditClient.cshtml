@@ -1,0 +1,120 @@
+﻿@model EasyERP.Models.Client
+
+@{
+    ViewBag.Title = "Edycja klienta";
+}
+
+@using (Html.BeginForm("EditClient", "Clients", FormMethod.Post, new { @id="dane-konta" }))
+{ 
+    <h1 class="bold">Dane adresowe</h1>
+    @Html.ActionLink("Anuluj", "DetailsClient", "Clients", new { id = Model.ClientId }, htmlAttributes: new { @class = "button" })
+    <input type="submit" value="Zapisz" class="button zapisz transition">
+    @Html.Partial("_ClientAddEdit")
+}
+<div id="operacje">
+    <h2 class="bold">Operacje</h2>
+    <a href="#">Generuj ofertę</a>
+    <a href="#">Stwórz zamówienie</a>
+</div>
+<div class="clr"></div>
+<div id="zamowienia">
+    <h1 class="bold">Ostatnie zamówienia<span>Wygenerowane oferty</span></h1>
+    <a href="#" class="button">Pokaż wszystkie</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Numer zamówienia</th>
+                <th>Sprzedawca przyjmujący</th>
+                <th>Data utworzenia</th>
+                <th>Data zakończenia</th>
+                <th>Cenia netto/brutto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>8526</td>
+                <td>Daniel Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>544</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>5654</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td>7644</td>
+                <td>Martyna Jerzyna</td>
+                <td>10.04.2014 r.</td>
+                <td>25.05.2014 r.</td>
+                <td>1400 zł / 2500 zł</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <form method="get">
+                        <a href="#" id="wstecz"></a>
+                        <input type="text" value="1" name="page"><span>/ 5</span>
+                        <a href="#" id="dalej"></a>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="notatka">
+    <h2 class="bold">Zostaw notatkę</h2>
+        <textarea>Uwaga na pana Andrzeja, nerwowy człowiek.</textarea>
+</div>
+
