@@ -22,13 +22,7 @@ namespace EasyERP.Controllers
         public ActionResult SettingsUsers()
         {
             var users = db.Users.ToList();
-            var user = new User();
-            user.Name = "Login";
-            user.Password = "Hasło";
-            user.FirstName = "Imię";
-            user.LastName = "Nazwisko";
-            user.Email = "E-mail";
-            ViewBag.User = user;
+            ViewBag.User = CreateUserDefault();
             return PartialView("_SettingsUsers", users);
         }
 
@@ -69,8 +63,55 @@ namespace EasyERP.Controllers
         [HttpPost]
         public ActionResult AddUser(User user)
         {
-            
-            return RedirectToAction("Basic");
+            try
+            {
+                var checkUser = db.Users.Where(u => u.Name == user.Name).FirstOrDefault();
+                if (checkUser != null)
+                    throw new Exception("Uzytkownik o podanym Loginie już istnieje.");
+                user.EnteredOn = DateTime.Now;
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                //ViewBag.User = user;
+                //return PartialView("_SettingsUsers", db.Users.ToList());
+            }
+            return View("Basic");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var user = db.Users.Find(id);
+            return PartialView("_EditUser", user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            ViewBag.User = null;
+            ViewBag.User = CreateUserDefault();
+            return PartialView("_SettingsUsers", db.Users.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            ViewBag.User = null;
+            ViewBag.User = CreateUserDefault();
+            return PartialView("_SettingsUsers", db.Users.ToList());
+
         }
 
         [HttpGet]
@@ -86,6 +127,17 @@ namespace EasyERP.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private User CreateUserDefault()
+        {
+            var user = new User();
+            user.Name = "Login";
+            user.Password = "Hasło";
+            user.FirstName = "Imię";
+            user.LastName = "Nazwisko";
+            user.Email = "E-mail";
+            return user;
         }
     }
 }

@@ -292,6 +292,7 @@
     <Content Include="Views\Settings\Basic.cshtml" />
     <Content Include="Views\Shared\_SettingsCompany.cshtml" />
     <Content Include="Views\Shared\_SettingsUsers.cshtml" />
+    <Content Include="Views\Shared\_EditUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
