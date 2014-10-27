@@ -1079,7 +1079,7 @@ form#produkty td {
 	vertical-align: top;
 }
 
-#dane-konta input[type="text"], form#produkty input[type="text"], form#produkty textarea {
+#dane-konta input[type="text"], form#produkty input[type="text"], form#produkty textarea, .edit input[type="password"] {
 	display: block;
 	position: absolute;
 	top: -1px;

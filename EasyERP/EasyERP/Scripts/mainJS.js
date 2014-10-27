@@ -74,6 +74,8 @@ $(document).ready(function () {
     });
 })
 
-function foo(result) {
-    alert("lalfa");
-}
+function onSuccess(result) {
+    // enable unobtrusive validation for the contents
+    // that was injected into the <div id="result"></div> node
+    $.validator.unobtrusive.parse($(result));
+};
