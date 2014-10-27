@@ -72,5 +72,8 @@ $(document).ready(function () {
             $("#addProduct-modalPopUp").dialog("open");
         });
     });
-
 })
+
+function foo(result) {
+    alert("lalfa");
+}

@@ -1,13 +1,13 @@
 ﻿@model EasyERP.Models.User
 
 <div id="dane-konta">
-    @using (Ajax.BeginForm("Edit", "Settings", new AjaxOptions(){ HttpMethod = "POST", UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace}))
+    @using (Ajax.BeginForm("Edit", "Settings", null, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, OnSuccess = "function() { alert('ok'); }", OnFailure="function() { alert('failur'); }" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
 
-        @Html.ActionLink("Anuluj", "Basic", "Settings", htmlAttributes: new { @class = "button" })
+        @Ajax.ActionLink("Anuluj", "SettingsUsers", new {}, new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @class = "button" })
         <input type="submit" value="Zapisz" class="button zapisz transition">
         <table class="edit">
             <tr>

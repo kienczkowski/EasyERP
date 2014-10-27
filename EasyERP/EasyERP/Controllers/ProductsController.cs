@@ -12,6 +12,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace EasyERP.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private DBContext db = new DBContext();

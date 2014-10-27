@@ -13,20 +13,24 @@ namespace EasyERP.Models
         [DisplayName("Numer użytkownika")]
         public int UserId { get; set; }
         [DisplayName("Imię")]
+        [Required(ErrorMessage="Pole imię jest wymagane")]
         public string FirstName { get; set; }
         [DisplayName("Nazwisko")]
+        [Required(ErrorMessage = "Pole imię jest wymagane")]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Login jest wymagana")]
         [DisplayName("Nazwa użytkownika")]
+        [Required(ErrorMessage = "Login jest wymagana")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Hasło jest wymagane")]
         [DisplayName("Hasło użytkownika")]
+        [Required(ErrorMessage = "Hasło jest wymagane")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [DisplayName("Zapamiętać")]
         public bool RememberMe { get; set; }
         [DisplayName("Data dodania")]
         public DateTime? EnteredOn { get; set; }
         [DisplayName("E-mail")]
+        [Required(ErrorMessage = "Pole imię jest wymagane")]
         public string Email { get; set; }
     }
 }

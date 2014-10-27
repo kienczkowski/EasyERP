@@ -1,4 +1,5 @@
 ﻿using EasyERP.Context;
+using EasyERP.HelperClass;
 using EasyERP.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace EasyERP.Controllers
 {
+    [Authorize]
     public class SettingsController : Controller
     {
         DBContext db = new DBContext();
@@ -68,6 +70,8 @@ namespace EasyERP.Controllers
                 var checkUser = db.Users.Where(u => u.Name == user.Name).FirstOrDefault();
                 if (checkUser != null)
                     throw new Exception("Uzytkownik o podanym Loginie już istnieje.");
+                var password = Encryption.GetSaltedHash(user.Password, user.Name);
+                user.Password = password;
                 user.EnteredOn = DateTime.Now;
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -85,6 +89,8 @@ namespace EasyERP.Controllers
         public ActionResult Edit(int id)
         {
             var user = db.Users.Find(id);
+            ViewBag.User = CreateUserDefault();
+            user.Password = string.Empty;
             return PartialView("_EditUser", user);
         }
 
@@ -92,13 +98,16 @@ namespace EasyERP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
+            ViewBag.User = CreateUserDefault();
             if (ModelState.IsValid)
             {
+                var password = Encryption.GetSaltedHash(user.Password, user.Name);
+                user.Password = password;
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            ViewBag.User = null;
-            ViewBag.User = CreateUserDefault();
+            else
+                return PartialView("_EidtUser", user);
             return PartialView("_SettingsUsers", db.Users.ToList());
         }
 

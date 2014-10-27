@@ -52,7 +52,7 @@
                     </td>
                     <td>
                         @Ajax.ActionLink("Zmień", "Edit", new { id = item.UserId }, new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }) |
-                        @Ajax.ActionLink("Usuń", "Delete", new { id = item.UserId }, new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }) 
+                        @Ajax.ActionLink("Usuń", "Delete", new { id = item.UserId }, new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
                     </td>
                 </tr>
             }
@@ -65,12 +65,12 @@
     {
         var user = (EasyERP.Models.User)ViewBag.User;
         <h2 class="bold">Dodaj użytkownika</h2>
-        @Html.TextBox("Name", user.Name)
-        @Html.TextBox("Password", user.Password)
-        @Html.TextBox("Password", user.Password)
-        @Html.TextBox("FirstName", user.FirstName)
-        @Html.TextBox("LastName", user.LastName)
-        @Html.TextBox("Email", user.Email)
+        <input id="Name" name="Name" value=@user.Name type="text">
+        <input id="Password" name="Password" value="" type="password">
+        <input id="Password" name="Password" value="" type="password">
+        <input id="FirstName" name="FirstName" value=@user.FirstName type="text">
+        <input id="LastName" name="LastName" value=@user.LastName type="text">
+        <input id="Email" name="Email" value=@user.Email type="text">
         <input type="submit" class="ust" value="Dodaj użytkownika">
     }
 }

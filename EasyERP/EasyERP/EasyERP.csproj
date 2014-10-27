@@ -180,6 +180,11 @@
     <Content Include="Scripts\jquery-ui.min-1.11.1.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\Chart.js" />
     <Content Include="Scripts\js\Chart.min.js" />
     <Content Include="Scripts\js\gulpfile.js" />
@@ -242,6 +247,14 @@
     <Compile Include="Migrations\201410262315539_Mig8.cs" />
     <Compile Include="Migrations\201410262315539_Mig8.Designer.cs">
       <DependentUpon>201410262315539_Mig8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410271902514_Mig9.cs" />
+    <Compile Include="Migrations\201410271902514_Mig9.Designer.cs">
+      <DependentUpon>201410271902514_Mig9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410271947513_Migr10.cs" />
+    <Compile Include="Migrations\201410271947513_Migr10.Designer.cs">
+      <DependentUpon>201410271947513_Migr10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
@@ -324,6 +337,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410262315539_Mig8.resx">
       <DependentUpon>201410262315539_Mig8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410271902514_Mig9.resx">
+      <DependentUpon>201410271902514_Mig9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410271947513_Migr10.resx">
+      <DependentUpon>201410271947513_Migr10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
