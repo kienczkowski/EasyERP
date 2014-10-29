@@ -54,24 +54,6 @@ $(document).ready(function () {
     kalendarz = document.getElementById('data');
 
     printCalendar();
-
-    $(function () {
-        $("#addProduct-modalPopUp").dialog({
-            autoOpen: false,
-            show: {
-                effect: "blind",
-                duration: 1000
-            },
-            hide: {
-                effect: "explode",
-                duration: 1000
-            }
-        });
-
-        $("#open-dialog").click(function () {
-            $("#addProduct-modalPopUp").dialog("open");
-        });
-    });
 })
 
 function onSuccess(result) {

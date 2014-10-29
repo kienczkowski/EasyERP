@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EasyERP.Context;
@@ -10,7 +12,6 @@ using EasyERP.Models.HelpModels;
 
 namespace EasyERP.Controllers
 {
-    [Authorize]
     public class OrdersController : Controller
     {
         private DBContext db = new DBContext();
@@ -30,54 +31,91 @@ namespace EasyERP.Controllers
             }
         }
 
-        public ActionResult Order()
+        // GET: Orders
+        public ActionResult Orders()
         {
             return View(db.Orders.ToList());
         }
 
-        [HttpGet]
-        public ActionResult AddOrder(int ClientId)
+        // GET: Orders/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
+        }
+
+        // GET: Orders/Create
+        public ActionResult Create(int ClientId)
         {
             AddOrderProducts model = new AddOrderProducts();
-            model.Orders = GetOrders(ClientId);
+            if (ClientId == 0)
+            {
+                model.ClientId = 0;
+                model.Clients = db.Clients.ToList();
+            }
+            else
+            {
+                model.Orders = GetOrders(ClientId);
+                model.ClientId = ClientId;
+            }
+
             model.Products = GetAllProducts();
             if (NumberProducts != null)
                 model.Basket = GetBasketProduct();
-            model.ClientId = ClientId;
             return View(model);
         }
 
+        // POST: Orders/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ActionName("AddOrder")]
-        public ActionResult AddOrderPost(int ClientId)
+        [ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePost(AddOrderProducts model)
         {
-            AddOrderProducts model = new AddOrderProducts();
+            //AddOrderProducts model = new AddOrderProducts();
             try
             {
-                using (var dbContext = new DBContext())
+                if (ModelState.IsValid)
                 {
+                    using (var dbContext = new DBContext())
+                    {
 
-                    List<Product> basketProduct = GetBasketProduct();
-                    if (basketProduct.Count == 0)
-                    {
-                        model.Products = GetAllProducts();
-                        model.Orders = GetOrders(ClientId);
-                        model.ClientId = ClientId;
-                        throw new Exception("Nie wybrano żadengo produktu");
+                        List<Product> basketProduct = GetBasketProduct();
+                        if (basketProduct.Count == 0)
+                        {
+                            model.Products = GetAllProducts();
+                            model.Orders = GetOrders(model.ClientId);
+                            model.ClientId = model.ClientId;
+                            throw new Exception("Nie wybrano żadengo produktu");
+                        }
+                        Client client = dbContext.Clients.Find(model.ClientId);
+                        Order newOrder = new Order();
+                        newOrder.StartDate = DateTime.Now;
+                        newOrder.Seller = this.Session["LoginName"] != null ? this.Session["LoginName"].ToString() : "Brak danych";
+                        newOrder.Client = client;
+                        foreach (Product product in basketProduct)
+                        {
+                            Product item = dbContext.Products.Find(product.ProductId);
+                            newOrder.Products.Add(item);
+                        }
+                        dbContext.Orders.Add(newOrder);
+                        dbContext.SaveChanges();
+                        NumberProducts = null;
                     }
-                    Client client = dbContext.Clients.Find(ClientId);
-                    Order newOrder = new Order();
-                    newOrder.StartDate = DateTime.Now;
-                    newOrder.Seller = this.Session["LoginName"] != null ? this.Session["LoginName"].ToString() : "Brak danych";
-                    newOrder.Client = client;
-                    foreach (Product product in basketProduct)
-                    {
-                        Product item = dbContext.Products.Find(product.ProductId);
-                        newOrder.Products.Add(item);
-                    }
-                    dbContext.Orders.Add(newOrder);
-                    dbContext.SaveChanges();
-                    NumberProducts = null;
+                }
+                else
+                {
+                    model.Clients = db.Clients.ToList();
+                    return View(model);
                 }
             }
             catch (Exception ex)
@@ -85,20 +123,80 @@ namespace EasyERP.Controllers
                 ViewBag.Error = ex.Message;
                 return View(model);
             }
-            return RedirectToAction("DetailsClient", "Clients", new { id = ClientId });
+            return RedirectToAction("Orders", "Orders", new { id = model.ClientId });
         }
 
-        [HttpPost]
-        public ActionResult AddProductToOrder(AddOrderProducts model)
+        // GET: Orders/Edit/5
+        public ActionResult Edit(int? id)
         {
-            return View("AddOrder", model);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
+        }
+
+        // POST: Orders/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "OrderId,Seller,StartDate,EndDate,ListPrice,PurchasePrice")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Orders");
+            }
+            return View(order);
+        }
+
+        // GET: Orders/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
+        }
+
+        // POST: Orders/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Order order = db.Orders.Find(id);
+            db.Orders.Remove(order);
+            db.SaveChanges();
+            return RedirectToAction("Orders");
         }
 
         [HttpGet]
         public ActionResult AddProductToBasket(int ProductId, int ClientId)
         {
             NumberProducts += ProductId + ",";
-            return RedirectToAction("AddOrder", new { ClientId = ClientId });
+            return RedirectToAction("Create", new { ClientId = ClientId });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         public static List<Order> GetOrders(int ClientId)

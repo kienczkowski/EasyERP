@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace EasyERP.Models.HelpModels
 {
@@ -12,10 +14,16 @@ namespace EasyERP.Models.HelpModels
             Orders = new List<Order>();
             Products = new List<Product>();
             Basket = new List<Product>();
+            Clients = new List<Client>();
+            Order = new Order();
         }
+        [Required]
+        [Range(1, int.MaxValue)]
         public int ClientId { get; set; }
+        public Order Order { get; set; }
         public List<Order> Orders { get; set; }
         public List<Product> Products { get; set; }
         public List<Product> Basket { get; set; }
+        public IEnumerable<Client> Clients { get; set; }
     }
 }

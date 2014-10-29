@@ -215,6 +215,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Global\Global.cs" />
+    <Compile Include="HelperClass\Class1.cs" />
     <Compile Include="HelperClass\Encryption.cs" />
     <Compile Include="Migrations\201410232145540_Mig1.cs" />
     <Compile Include="Migrations\201410232145540_Mig1.Designer.cs">
@@ -256,6 +257,14 @@
     <Compile Include="Migrations\201410271947513_Migr10.Designer.cs">
       <DependentUpon>201410271947513_Migr10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410292143315_Mig11.cs" />
+    <Compile Include="Migrations\201410292143315_Mig11.Designer.cs">
+      <DependentUpon>201410292143315_Mig11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410292331317_Mig13.cs" />
+    <Compile Include="Migrations\201410292331317_Mig13.Designer.cs">
+      <DependentUpon>201410292331317_Mig13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Company.cs" />
@@ -291,13 +300,11 @@
     <Content Include="Views\Clients\EditClient.cshtml" />
     <Content Include="Views\Shared\_ClientDetails.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Views\Orders\AddOrder.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Orders\Order.cshtml" />
     <Content Include="Views\Shared\_Calendar.cshtml" />
     <Content Include="Views\Shared\_CreateTask.cshtml" />
     <Content Include="Views\Shared\_AllTask.cshtml" />
@@ -306,6 +313,11 @@
     <Content Include="Views\Shared\_SettingsCompany.cshtml" />
     <Content Include="Views\Shared\_SettingsUsers.cshtml" />
     <Content Include="Views\Shared\_EditUser.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Orders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -343,6 +355,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410271947513_Migr10.resx">
       <DependentUpon>201410271947513_Migr10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410292143315_Mig11.resx">
+      <DependentUpon>201410292143315_Mig11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410292331317_Mig13.resx">
+      <DependentUpon>201410292331317_Mig13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
