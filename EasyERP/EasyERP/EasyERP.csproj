@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201410292331317_Mig13.Designer.cs">
       <DependentUpon>201410292331317_Mig13.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410302215096_Migr14.cs" />
+    <Compile Include="Migrations\201410302215096_Migr14.Designer.cs">
+      <DependentUpon>201410302215096_Migr14.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Company.cs" />
@@ -361,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410292331317_Mig13.resx">
       <DependentUpon>201410292331317_Mig13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410302215096_Migr14.resx">
+      <DependentUpon>201410302215096_Migr14.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

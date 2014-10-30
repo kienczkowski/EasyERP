@@ -17,9 +17,11 @@ namespace EasyERP.Models
         [Key]
         [DisplayName("Numer zamówienia")]
         public int OrderId { get; set; }
+        [Required]
         [DisplayName("Sprzedawca przyjmujący")]
         public string Seller { get; set; }
         [DisplayName("Data utworzenia")]
+        [Required]
         public DateTime? StartDate { get; set; }
         [DisplayName("Data zakończenia")]
         public DateTime? EndDate { get; set; }
