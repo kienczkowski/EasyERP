@@ -2,14 +2,17 @@
 /// <reference path="jquery-2.1.0-vsdoc.js" />
 $(document).ready(function () {
 
-    setTimeout(TaskPercent, 2000);
-
+    setInterval(function () {
+        //AKCJA DO WYKONYWANIA
+        TaskPercent();
+    }, 5000);
+    debugger;
     var rozwin = document.getElementById('rozwin');
     var menu = document.getElementById('menu');
     var content = document.getElementById('content');
 
     rozwin.onclick = function () {
-        if (this.style.marginRight == '30px') {
+         if (this.style.marginRight == '30px') {
             this.style.marginRight = '20px';
             menu.style.width = '72px';
             menu.style.color = '#343f51';
@@ -41,12 +44,11 @@ $(document).ready(function () {
 
     $("#open-dialog").click(function () {
         $("#addProduct-modalPopUp").dialog("open");
-        alert('dsdsd');
     });
 })
 
 
-function TaskPercent(interval) {
+function TaskPercent() {
     var percent1 = Math.floor((Math.random() * 100) + 1);
     var percent2 = Math.floor((Math.random() * 100) + 1);
     var ctx1 = document.getElementById("chart-area-1").getContext("2d");
