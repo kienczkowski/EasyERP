@@ -54,10 +54,20 @@ $(document).ready(function () {
     kalendarz = document.getElementById('data');
 
     printCalendar();
-})
 
-function onSuccess(result) {
-    // enable unobtrusive validation for the contents
-    // that was injected into the <div id="result"></div> node
-    $.validator.unobtrusive.parse($(result));
-};
+    $("#addProduct-modalPopUp").dialog({
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 1000
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        }
+    });
+
+    $("#open-dialog").click(function () {
+        $("#addProduct-modalPopUp").dialog("open");
+    });
+})

@@ -3,20 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>EasyERP - @ViewBag.Title</title>
-    <link rel="stylesheet" type="text/css" href="~/Content/reset.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="~/Content/style.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="~/Content/PagedList.css" media="screen" />
-    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Arimo:400,400italic&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui.min-1.11.1.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/mainJS.js"></script>
-    <script src="~/Scripts/js/Chart.js"></script>
-    <script src="~/Scripts/js/kalendarz.js"></script>
+    @Styles.Render("~/Content/css")
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <![endif]-->
@@ -78,5 +67,7 @@
             @RenderBody()
         </div>
     </section>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

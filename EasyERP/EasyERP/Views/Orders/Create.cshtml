@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Scripts.Render("~/bundles/jquery")
 
 @using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { @id = "dane-konta" }))
 {
@@ -153,21 +154,3 @@
         }
     </table>
 </div>
-<script type="text/javascript">
-    $("#addProduct-modalPopUp").dialog({
-        autoOpen: false,
-        show: {
-            effect: "blind",
-            duration: 1000
-        },
-        hide: {
-            effect: "explode",
-            duration: 1000
-        }
-    });
-
-    $("#open-dialog").click(function () {
-        $("#addProduct-modalPopUp").dialog("open");
-    });
-</script>
-

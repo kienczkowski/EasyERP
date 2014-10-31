@@ -1,8 +1,9 @@
 ﻿@model EasyERP.Models.User
 
-<script type="text/javascript" language=javascript>
+@*<script type="text/javascript" language=javascript>
     $.validator.unobtrusive.parse(document);
-</script>
+</script>*@
+@Scripts.Render("~/bundles/jquery")
 <div id="dane-konta">
     @using (Ajax.BeginForm("Edit", "Settings", null, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, OnSuccess = "onSuccess" }))
     {
