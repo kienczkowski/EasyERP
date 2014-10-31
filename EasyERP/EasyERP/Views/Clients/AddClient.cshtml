@@ -5,6 +5,7 @@
 }
 @using (Html.BeginForm("AddClient", "Clients", FormMethod.Post))
 {
+    @Html.ValidationSummary(false, "", new { @class = "text-danger alert" })
     <div id="dane-konta">
         <h1 class="bold">Dane adresowe</h1>
         @Html.Partial("_ClientAddEdit")
@@ -13,6 +14,4 @@
         <h2 class="bold">Zostaw notatkę</h2>
         @Html.TextAreaFor(m => m.Notes.ToList()[0].Description)
     </div>
-    
-    @Html.ValidationSummary()
 }

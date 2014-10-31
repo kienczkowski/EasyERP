@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Scripts.Render("~/bundles/jquery")
-
 @using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { @id = "dane-konta" }))
 {
     @Html.AntiForgeryToken()
@@ -14,11 +12,12 @@
 
 
     <h1 class="bold">Utwórz zamówienie</h1>
+    <input type="submit" value="Stwórz zamówienie" class="button zapisz transition" />
     <a id="open-dialog" href="#" class="button">Dodaj produkt</a>
     <table class="edit">
         <tr>
             <td colspan="2" align="center">
-                <h2 align="center">Dane dokumentu</h2>
+                <h2>Dane dokumentu</h2>
             </td>
         </tr>
         <tr>
@@ -55,7 +54,7 @@
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <h2 align="center">Pozycje</h2>
+                <h2>Pozycje</h2>
             </td>
         </tr>
     </table>
@@ -86,12 +85,12 @@
                 <td> </td>
             </tr>
         </tbody>
-    </table>
+    </table> 
 }
 <div id="operacje">
     <h2 class="bold">Operacje</h2>
     <a href="#">Generuj ofertę</a>
-    <a href="#" onclick="document.forms[1].submit();return false;">Stwórz zamówienie</a>
+    @*<a href="#" onclick="document.forms[1].submit();return false;">Stwórz zamówienie</a>*@
 </div>
 <div class="clr"></div>
 @if (Model.ClientId != 0)
@@ -102,29 +101,29 @@
         <table>
             <thead>
                 @foreach (var item in Model.Orders)
-            {
-            <tr>
-                <th>@Html.DisplayFor(modelItem => item.OrderId)</th>
-                <th>@Html.DisplayFor(modelItem => item.Seller)</th>
-                <th>@Html.DisplayFor(modelItem => item.StartDate)</th>
-                <th>@Html.DisplayFor(modelItem => item.EndDate)</th>
-                <th>@Html.DisplayFor(modelItem => item.ListPrice)</th>
-                <th>@Html.DisplayFor(modelItem => item.PurchasePrice)</th>
-            </tr>
-            }
+                {
+                    <tr>
+                        <th>@Html.DisplayFor(modelItem => item.OrderId)</th>
+                        <th>@Html.DisplayFor(modelItem => item.Seller)</th>
+                        <th>@Html.DisplayFor(modelItem => item.StartDate)</th>
+                        <th>@Html.DisplayFor(modelItem => item.EndDate)</th>
+                        <th>@Html.DisplayFor(modelItem => item.ListPrice)</th>
+                        <th>@Html.DisplayFor(modelItem => item.PurchasePrice)</th>
+                    </tr>
+                }
             </thead>
             <tbody>
                 @foreach (EasyERP.Models.Order order in @Model.Orders)
-            {
-            <tr>
-                <td>@order.OrderId</td>
-                <td>@order.Seller</td>
-                <td>@order.StartDate</td>
-                <td>@order.EndDate</td>
-                <td>@order.ListPrice zł</td>
-                <td>@order.PurchasePrice zł</td>
-            </tr>
-            }
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.Seller</td>
+                        <td>@order.StartDate</td>
+                        <td>@order.EndDate</td>
+                        <td>@order.ListPrice zł</td>
+                        <td>@order.PurchasePrice zł</td>
+                    </tr>
+                }
                 <tr>
                     <td colspan="6">
                         <form method="get">
@@ -139,6 +138,7 @@
     </div>
 
 }
+
 <div id="addProduct-modalPopUp">
     <table>
         @foreach (EasyERP.Models.Product product in @Model.Products)
@@ -154,3 +154,22 @@
         }
     </table>
 </div>
+
+<script type="text/javascript">
+    $("#addProduct-modalPopUp").dialog({
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 1000
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        }
+    });
+
+    $("#open-dialog").click(function () {
+        $("#addProduct-modalPopUp").dialog("open");
+    });
+</script>
+

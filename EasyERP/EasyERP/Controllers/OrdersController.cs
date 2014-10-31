@@ -77,9 +77,8 @@ namespace EasyERP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost(AddOrderProducts model)
+        public ActionResult Create(AddOrderProducts model)
         {
             //AddOrderProducts model = new AddOrderProducts();
             try

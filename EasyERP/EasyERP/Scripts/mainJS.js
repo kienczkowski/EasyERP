@@ -66,8 +66,9 @@ $(document).ready(function () {
             duration: 1000
         }
     });
-
+    
     $("#open-dialog").click(function () {
         $("#addProduct-modalPopUp").dialog("open");
+        alert('dsdsd');
     });
 })

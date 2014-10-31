@@ -16,10 +16,9 @@ namespace EasyERP.App_Start
                         "~/Scripts/jquery-ui.min-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax*",
                         "~/Scripts/jquery.validate*",
-                        //"~/Scripts/jquery.validate.unobtrusive*",
-                        "~/Scripts/mainJS.js",
                         "~/Scripts/js/Chart.js",
-                        "~/Scripts/js/kalendarz.js"));
+                        "~/Scripts/js/kalendarz.js",
+                        "~/Scripts/mainJS.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/reset.css",
