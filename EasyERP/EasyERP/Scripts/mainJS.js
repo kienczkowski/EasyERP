@@ -1,36 +1,8 @@
 ﻿/// <reference path="jquery-2.1.1.min.js" />
 /// <reference path="jquery-2.1.0-vsdoc.js" />
 $(document).ready(function () {
-    var doughnutData1 = [
-			{
-			    value: 75,
-			    color: "#e3e3e3",
-			    highlight: "#e3e3e3"
-			},
-			{
-			    value: 15,
-			    color: "#8db859",
-			    highlight: "#5AD3D1"
-			}
-    ];
 
-    var doughnutData2 = [
-        {
-            value: 15,
-            color: "#e3e3e3",
-            highlight: "#e3e3e3"
-        },
-        {
-            value: 75,
-            color: "#fb4d61",
-            highlight: "#5AD3D1"
-        }
-    ];
-
-    var ctx1 = document.getElementById("chart-area-1").getContext("2d");
-    window.myDoughnut1 = new Chart(ctx1).Doughnut(doughnutData1, { responsive: false });
-    var ctx2 = document.getElementById("chart-area-2").getContext("2d");
-    window.myDoughnut2 = new Chart(ctx2).Doughnut(doughnutData2, { responsive: false });
+    setTimeout(TaskPercent, 2000);
 
     var rozwin = document.getElementById('rozwin');
     var menu = document.getElementById('menu');
@@ -66,9 +38,53 @@ $(document).ready(function () {
             duration: 1000
         }
     });
-    
+
     $("#open-dialog").click(function () {
         $("#addProduct-modalPopUp").dialog("open");
         alert('dsdsd');
     });
 })
+
+
+function TaskPercent(interval) {
+    var percent1 = Math.floor((Math.random() * 100) + 1);
+    var percent2 = Math.floor((Math.random() * 100) + 1);
+    var ctx1 = document.getElementById("chart-area-1").getContext("2d");
+    window.myDoughnut1 = new Chart(ctx1).Doughnut(TaskFinite(percent1, percent2), { responsive: false });
+    var ctx2 = document.getElementById("chart-area-2").getContext("2d");
+    window.myDoughnut2 = new Chart(ctx2).Doughnut(TaskInFinite(percent1, percent2), { responsive: false });
+}
+
+function TaskFinite(percent1, percent2) {
+    var Finite = [
+			{
+			    value: percent2,
+			    color: "#e3e3e3",
+			    highlight: "#e3e3e3"
+			},
+			{
+			    value: percent1,
+			    color: "#8db859",
+			    highlight: "#5AD3D1"
+			}
+    ];
+
+    return Finite;
+}
+
+function TaskInFinite(percent1, percent2) {
+    var InFinite = [
+			{
+			    value: percent2,
+			    color: "#e3e3e3",
+			    highlight: "#e3e3e3"
+			},
+			{
+			    value: percent1,
+			    color: "#fb4d61",
+			    highlight: "#5AD3D1"
+			}
+    ];
+
+    return InFinite;
+}
