@@ -67,6 +67,7 @@
             @RenderBody()
         </div>
     </section>
+    @Html.Hidden("controllerName", ViewContext.RouteData.Values["Controller"].ToString())
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>

@@ -3,8 +3,22 @@
 <table id="lista">
     <thead>
         <tr>
-            <th><span>Zadania skończone</span><span class="skonczone">...</span><div id="canvas-holder-1"><canvas id="chart-area-1" width="50" height="50" /></div></th>
-            <th><span>Zadania nieskończone</span><span class="nie-skonczone">...</span><div id="canvas-holder-2"><canvas id="chart-area-2" width="50" height="50" /></div></th>
+            <th>
+                <span>Zadania skończone</span><span class="skonczone">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </span>
+                <div id="canvas-holder-1"><canvas id="chart-area-1" width="50" height="50" /></div>
+            </th>
+            <th>
+                <span>Zadania nieskończone</span><span class="nie-skonczone">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </span>
+                <div id="canvas-holder-2"><canvas id="chart-area-2" width="50" height="50" /></div>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -64,7 +78,7 @@
                     }
                     <span class="opis">@item.Description</span>
                     <span class="data">@item.TaskDate</span>
-                    @Ajax.ActionLink("Wybierz", "SelectTask",  new { @taskId = item.TaskId }, new AjaxOptions { UpdateTargetId = "allTask", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                    @Ajax.ActionLink("Wybierz", "SelectTask", new { @taskId = item.TaskId }, new AjaxOptions { UpdateTargetId = "allTask", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
                 </td>
             </tr>
         }

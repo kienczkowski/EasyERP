@@ -2,16 +2,17 @@
 /// <reference path="jquery-2.1.0-vsdoc.js" />
 $(document).ready(function () {
 
-    setInterval(function () {
-        //AKCJA DO WYKONYWANIA
-        TaskPercent();
-    }, 5000);
+
+    var controllerName = $("#controllerName").val();
+    if (controllerName == "Dashboard")
+        setInterval(TaskPercent, 5000);
+
     var rozwin = document.getElementById('rozwin');
     var menu = document.getElementById('menu');
     var content = document.getElementById('content');
 
     rozwin.onclick = function () {
-         if (this.style.marginRight == '30px') {
+        if (this.style.marginRight == '30px') {
             this.style.marginRight = '20px';
             menu.style.width = '72px';
             menu.style.color = '#343f51';

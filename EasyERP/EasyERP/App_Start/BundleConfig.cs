@@ -14,11 +14,11 @@ namespace EasyERP.App_Start
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui-{version}.js",
-                        "~/Scripts/jquery.unobtrusive-ajax*",
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/js/Chart.js",
                         "~/Scripts/js/kalendarz.js",
-                        "~/Scripts/mainJS*"));
+                        "~/Scripts/mainJS.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/reset.css",
