@@ -18,7 +18,7 @@ namespace EasyERP.App_Start
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/js/Chart.js",
                         "~/Scripts/js/kalendarz.js",
-                        "~/Scripts/mainJS.js"));
+                        "~/Scripts/mainJS*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/reset.css",

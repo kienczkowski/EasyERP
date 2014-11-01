@@ -45,8 +45,7 @@ namespace EasyERP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ActionName("AddTask")]
-        public ActionResult AddTaskPost(Task task)
+        public ActionResult AddTask(Task task)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +54,7 @@ namespace EasyERP.Controllers
                     return HttpNotFound();
                 task.User = user;
                 task.TaskDate = DateTime.Now;
+                task.Status = 1;
                 db.Tasks.Add(task);
                 db.SaveChanges();
                 return RedirectToAction("Index");

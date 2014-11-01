@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Data.Entity;
 using EasyERP.Context;
-using EasyERP.Context.ContextInitializer;
 using EasyERP.App_Start;
 using System.Web.Optimization;
+using System.Web.Http;
 
 namespace EasyERP
 {
@@ -17,6 +17,7 @@ namespace EasyERP
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

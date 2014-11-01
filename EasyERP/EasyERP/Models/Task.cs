@@ -20,6 +20,9 @@ namespace EasyERP.Models
         public DateTime? TaskDate { get; set; }
         [DisplayName("Opis zadania")]
         public string Description { get; set; }
+        [DisplayName("Status zadania")]
+        [DefaultValue(1)]
+        public int Status { get; set; }
 
         public virtual User User { get; set; }
     }

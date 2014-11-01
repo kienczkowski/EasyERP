@@ -17,6 +17,8 @@ namespace EasyERP.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<LogError> LogError { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,15 +28,7 @@ namespace EasyERP.Context
                 c.MapRightKey("ProductId");
                 c.ToTable("OrdersProducts");
             });
-
-
-
             base.OnModelCreating(modelBuilder);
-        }
-
-        public System.Data.Entity.DbSet<EasyERP.Models.Task> Tasks { get; set; }
-
-        public System.Data.Entity.DbSet<EasyERP.Models.Company> Companies { get; set; }
-        
+        } 
     }
 }

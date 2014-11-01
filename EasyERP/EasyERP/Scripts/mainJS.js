@@ -6,7 +6,6 @@ $(document).ready(function () {
         //AKCJA DO WYKONYWANIA
         TaskPercent();
     }, 5000);
-    debugger;
     var rozwin = document.getElementById('rozwin');
     var menu = document.getElementById('menu');
     var content = document.getElementById('content');
@@ -49,12 +48,8 @@ $(document).ready(function () {
 
 
 function TaskPercent() {
-    var percent1 = Math.floor((Math.random() * 100) + 1);
-    var percent2 = Math.floor((Math.random() * 100) + 1);
-    var ctx1 = document.getElementById("chart-area-1").getContext("2d");
-    window.myDoughnut1 = new Chart(ctx1).Doughnut(TaskFinite(percent1, percent2), { responsive: false });
-    var ctx2 = document.getElementById("chart-area-2").getContext("2d");
-    window.myDoughnut2 = new Chart(ctx2).Doughnut(TaskInFinite(percent1, percent2), { responsive: false });
+    //var root = location.protocol + '//' + location.host;
+    ajaxHelper("/api/Task/GetPercent", "GET");
 }
 
 function TaskFinite(percent1, percent2) {
@@ -89,4 +84,30 @@ function TaskInFinite(percent1, percent2) {
     ];
 
     return InFinite;
+}
+
+function ajaxHelper(uri, method, data) {
+    $.ajax({
+        type: method,
+        url: uri,
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            var FinitePercentStart = response[0].PercentStart;
+            var FinitePercentEnd = response[0].PercentEnd;
+            var InFinitePercentStart = response[1].PercentStart;
+            var InFinitePercentEnd = response[1].PercentEnd;
+            var ctx1 = document.getElementById("chart-area-1").getContext("2d");
+            window.myDoughnut1 = new Chart(ctx1).Doughnut(TaskFinite(FinitePercentStart, FinitePercentEnd), { responsive: false });
+            var ctx2 = document.getElementById("chart-area-2").getContext("2d");
+            window.myDoughnut2 = new Chart(ctx2).Doughnut(TaskInFinite(InFinitePercentStart, InFinitePercentEnd), { responsive: false });
+            $(".skonczone").text(FinitePercentStart + "%");
+            $(".nie-skonczone").text(InFinitePercentStart + "%");
+        },
+        error: function (xhr, status, msg) {
+            alert(xhr.responseText);
+        }
+
+    });
 }
