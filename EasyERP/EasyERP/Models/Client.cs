@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -21,10 +22,12 @@ namespace EasyERP.Models
         [Required]
         public string CompanyCode { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
+        [DisplayName("Imię klienta")]
         public string FirstName { get; set; }
         public string Regon { get; set; }
         public string Nip { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
+        [DisplayName("Nazwisko klienta")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
         public string Address { get; set; }

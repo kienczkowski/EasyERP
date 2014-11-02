@@ -55,7 +55,8 @@ $(document).ready(function () {
 
 function TaskPercent() {
     //var root = location.protocol + '//' + location.host;
-    ajaxHelper("/api/Task/GetPercent", "GET");
+    var userId = $("#UserId").val();
+    ajaxHelper("/api/Task/GetPercent/" + userId, "GET");
 }
 
 function TaskFinite(percent1, percent2) {

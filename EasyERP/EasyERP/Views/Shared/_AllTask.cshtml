@@ -58,6 +58,7 @@
                     @Ajax.ActionLink("Wybierz", "SelectTask", new { @taskId = item.TaskId }, new AjaxOptions { UpdateTargetId = "allTask", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
                 </td>
             </tr>
+            @Html.Hidden("UserId", item.User.UserId)
         }
     </tbody>
 </table>

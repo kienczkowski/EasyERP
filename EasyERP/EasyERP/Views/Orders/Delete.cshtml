@@ -1,65 +1,61 @@
 ﻿@model EasyERP.Models.Order
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Usuwanie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+@using (Html.BeginForm("Delete", "Orders", new{ @id = Model.OrderId}, FormMethod.Post, new { @id = "dane-konta" }))
+{
+    @Html.AntiForgeryToken()
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Seller)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Seller)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ListPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ListPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PurchasePrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PurchasePrice)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+    <h1 class="bold">Usuwanie zamówienie</h1>
+    <input type="submit" value="Usuń" class="button zapisz transition" />
+    <table class="edit">
+        <tr>
+            <td colspan="2" align="center">
+                <h2>Dane dokumentu</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Seller)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Seller, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Client.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Client.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Client.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Client.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+    </table>
+}

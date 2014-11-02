@@ -24,7 +24,9 @@ namespace EasyERP.Models
         [DisplayName("Ilość")]
         public int Amount { get; set; }
         [DisplayName("Cena netto")]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:c}")]
         public decimal ListPrice { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:c}")]
         [DisplayName("Cena brutto")]
         public decimal PurchasePrice { get; set; }
         [DisplayName("Ilość w paczce")]
@@ -32,6 +34,7 @@ namespace EasyERP.Models
         [DisplayName("Kategoria")]
         public int Category { get; set; }
         [DisplayName("Data dostawy")]
+        [DataType(DataType.Date)]
         public DateTime? DeliveryDate { get; set; }
         [DisplayName("Opis produktu")]
         public string Description { get; set; }

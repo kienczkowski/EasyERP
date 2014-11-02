@@ -13,8 +13,9 @@
                 }
             }
         </h4>
-        <form class="alignleft align">
-            @foreach (SelectListItem type in (System.Collections.IEnumerable)ViewData["TaskType"])
+        @using (Html.BeginForm("FinishTask", "Dashboard", new { @taskId = Model.TaskId }, FormMethod.Post, htmlAttributes: new { @class = "alignleft align" }))
+        {
+            foreach (SelectListItem type in (System.Collections.IEnumerable)ViewData["TaskType"])
             {
                 if (Model.TaskType.ToString() == type.Value)
                 {
@@ -24,12 +25,18 @@
             }
             @Html.EditorFor(model => model.TaskDate, new { @class = "alignleft align", @name = "date" })
             @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "alignleft align opis-zadania", @name = "opis" })
-
-            <input type="submit" class="alignleft transition align zrobione" name="zrobione" value="Zrobione!">
-            <input type="submit" class="alignleft transition align przeloz" name="przełóż" value="Przełóż">
-        </form>
-        <a href="@Url.Action("Index", "Dashboard")" class="icon krzyzyk alignright align"></a>
-        <a href="@Url.Action("DeleteTask", "Dashboard", new { @taskId = Model.TaskId })" class="icon kosz alignright align"></a>
+            if (Model.Status == 1)
+            {
+                <input type="submit" class="alignleft transition align zrobione" name="zrobione" value="Zrobione!">
+                <input type="submit" class="alignleft transition align przeloz" name="przełóż" value="Przełóż" disabled="disabled">
+            }
+            else
+            {
+                <a>Zadanie zostało wykonane</a>
+            }
+            <a href="@Url.Action("Index", "Dashboard")" class="icon krzyzyk alignright align"></a>
+            <a href="@Url.Action("DeleteTask", "Dashboard", new { @taskId = Model.TaskId })" class="icon kosz alignright align"></a>
+        }
     </div>
 </div>
 @Scripts.Render("~/bundles/Common")

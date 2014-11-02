@@ -29,7 +29,7 @@
                     <td>@client.Phone</td>
                     <td>@client.EmailAddress</td>
                     <td><a href="#" class="zloz-oferte">Złóż ofertę</a></td>
-                    <td><a href="#" class="zestawienia-zamowien">Zestawienia zamówień</a></td>
+                    <td>@Html.ActionLink("Zestawienia zamówień", "Orders", "Orders", new { @clientId = client.ClientId }, htmlAttributes: new { @class="zestawienia-zamowien" })</td>
                 </tr>
             }
             <tr>

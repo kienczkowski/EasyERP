@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyERP.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,20 +10,23 @@ namespace EasyERP.Controllers
 {
     public class TaskController : ApiController
     {
+        DBContext db = new DBContext();
         // GET: api/Task
-        public IEnumerable<Percent> GetPercent()
+        public IEnumerable<Percent> GetPercent(int id)
         {
-            int percent1 = new Random().Next(1, 100);
-            int percent2 = 100 - percent1;
-
+            //Pobieramy task-i dla danego użytkownika
+            int percent1 = 0;
+            int percent2 = 0;
+            if (!string.IsNullOrEmpty(id.ToString()))
+            {
+                int allTask = db.Tasks.Where(m => m.User.UserId == id).Count();
+                int InFiniteTask = db.Tasks.Where(m => m.User.UserId == id && m.Status == 1).Count();
+                percent2 = (InFiniteTask * 100) / allTask;
+                percent1 = (100 - percent2);
+            } 
             Percent[] percent = new Percent[2];
-            percent[0] = new Percent();
-            percent[1] = new Percent();
-            percent[0].PercentStart = percent1;
-            percent[0].PercentEnd = percent2;
-            percent[1].PercentStart = percent2;
-            percent[1].PercentEnd = percent1;
-
+            percent[0] = new Percent() { PercentStart = percent1, PercentEnd = percent2 };
+            percent[1] = new Percent() { PercentStart = percent2, PercentEnd = percent1 };
             return percent;
             
         }

@@ -32,9 +32,12 @@ namespace EasyERP.Controllers
         }
 
         // GET: Orders
-        public ActionResult Orders()
+        public ActionResult Orders(int? clientId)
         {
-            return View(db.Orders.ToList());
+            if (clientId == null)
+                return View(db.Orders.ToList());
+            else
+                return View(db.Orders.Where(o => o.Client.ClientId == clientId).ToList());
         }
 
         // GET: Orders/Details/5
@@ -60,6 +63,7 @@ namespace EasyERP.Controllers
             {
                 model.ClientId = 0;
                 model.Clients = db.Clients.ToList();
+                model.Order.Seller = this.Session["FirstName"] != null && this.Session["LastName"] != null ? this.Session["FirstName"].ToString() + " " + this.Session["LastName"].ToString() : "";
             }
             else
             {
@@ -99,7 +103,7 @@ namespace EasyERP.Controllers
                         Client client = dbContext.Clients.Find(model.ClientId);
                         Order newOrder = new Order();
                         newOrder.StartDate = DateTime.Now;
-                        newOrder.Seller = this.Session["LoginName"] != null ? this.Session["LoginName"].ToString() : "Brak danych";
+                        newOrder.Seller = this.Session["FirstName"] != null && this.Session["LastName"] != null ? this.Session["FirstName"].ToString() + this.Session["LastName"].ToString() : "Brak";
                         newOrder.Client = client;
                         foreach (Product product in basketProduct)
                         {
@@ -128,6 +132,7 @@ namespace EasyERP.Controllers
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
+            NumberProducts = null;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -137,7 +142,15 @@ namespace EasyERP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(order);
+            AddOrderProducts model = new AddOrderProducts();
+            model.Clients = db.Clients.ToList();
+            model.Order = order;
+            model.ClientId = order.Client.ClientId;
+            model.Products = GetAllProducts();
+            model.Basket = new List<Product>(order.Products);
+            //if (NumberProducts != null)
+            //    model.Basket = GetBasketProduct();
+            return View(model);
         }
 
         // POST: Orders/Edit/5
@@ -145,12 +158,12 @@ namespace EasyERP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderId,Seller,StartDate,EndDate,ListPrice,PurchasePrice")] Order order)
+        public ActionResult Edit(AddOrderProducts order)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(order).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Orders");
             }
             return View(order);
@@ -209,15 +222,9 @@ namespace EasyERP.Controllers
             return orders;
         }
 
-        public static List<Product> GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            List<Product> products = new List<Product>();
-            using (DBContext db = new DBContext())
-            {
-                var productsSelect = db.Products.ToList();
-                products = productsSelect.ToList();
-            }
-            return products;
+            return db.Products.ToList();
         }
 
         public static Product GetProductId(int id)

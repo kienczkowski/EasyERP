@@ -33,13 +33,15 @@ namespace EasyERP.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddTask()
+        public ActionResult AddTask(string data)
         {
             ViewData["TaskType"] = CreateTaskType();
             ViewData["Priority"] = CreatePriority();
             var task = new Task();
             task.TaskId = 0;
             task.Priority = 0;
+            if (!string.IsNullOrEmpty(data))
+                task.TaskDate = DateTime.Parse(data);
             return PartialView("_CreateTask", task);
         }
 
@@ -53,7 +55,6 @@ namespace EasyERP.Controllers
                 if (user == null)
                     return HttpNotFound();
                 task.User = user;
-                task.TaskDate = DateTime.Now;
                 task.Status = 1;
                 db.Tasks.Add(task);
                 db.SaveChanges();
@@ -85,6 +86,20 @@ namespace EasyERP.Controllers
                 return HttpNotFound();
             }
             db.Tasks.Remove(task);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult FinishTask(int? taskId)
+        {
+            if(taskId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Task task = db.Tasks.Find(taskId);
+            task.Status = 2; //zakończone
+            db.Entry(task).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

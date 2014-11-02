@@ -1,3 +1,5 @@
+/// <reference path="../jquery-2.1.1.min.js" />
+/// <reference path="../jquery-2.1.0-vsdoc.js" />
 function rokPrzestepny(rok) {
     return ((rok % 4 == 0) && ((rok % 100 != 0) || (rok % 400 == 0)));
   }
@@ -129,9 +131,9 @@ function printCalendar() {
       dzien = "";
     }
     text += "<td class='" + dzien + "' onclick=ustawDzien('";
-    text += i - pierwszyDzienMiesiaca + 2;
+    text += rok;
     text += "/" + miesiac;
-    text += "/" + rok;
+    text += "/" + (i - pierwszyDzienMiesiaca + 2);
     text += "')>";
     text += i - pierwszyDzienMiesiaca + 2;
     text += "</td>";
@@ -156,5 +158,7 @@ function dalej() {
 }
 
 function ustawDzien(dzien) {
-  document.getElementById('dzien').value = dzien;
+    document.getElementById('dzien').value = dzien;
+    $("#dodaj").attr("href", "/Dashboard/AddTask?data=" + dzien);
+    $("#dodaj").click();
 }

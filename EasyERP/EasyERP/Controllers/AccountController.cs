@@ -28,6 +28,7 @@ namespace EasyERP.Controllers
                 {
                     var password = Encryption.GetSaltedHash(user.Password, user.Name);
                     this.Session.Add("LoginName", user.Name);
+                    this.Session.Add("IdUser", user.UserId);
                     List<User> users = db.Users.Where(u => u.Name == user.Name && u.Password == password).ToList();
                     if (users.Count > 0)
                     {
