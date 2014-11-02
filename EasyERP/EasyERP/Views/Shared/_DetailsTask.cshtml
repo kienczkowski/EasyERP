@@ -1,12 +1,6 @@
 ﻿@model EasyERP.Models.Task
 
 <div id="zadania">
-    <div class="wykres alignleft align">
-        <span>Zadania skończone</span><span class="skonczone">15 %</span><div id="canvas-holder-1"><canvas id="chart-area-1" width="50" height="50" /></div>
-    </div>
-    <div class="wykres alignright align">
-        <span>Zadania nieskończone</span><span class="nie-skonczone">75 %</span><div id="canvas-holder-2"><canvas id="chart-area-2" width="50" height="50" /></div>
-    </div>
     <div id="dodaj-zadanie">
         <h4>
             @foreach (SelectListItem type in (System.Collections.IEnumerable)ViewData["Priority"])
@@ -38,3 +32,4 @@
         <a href="@Url.Action("DeleteTask", "Dashboard", new { @taskId = Model.TaskId })" class="icon kosz alignright align"></a>
     </div>
 </div>
+@Scripts.Render("~/bundles/Common")

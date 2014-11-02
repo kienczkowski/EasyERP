@@ -1,26 +1,6 @@
 ﻿@model IEnumerable<EasyERP.Models.Task>
 
 <table id="lista">
-    <thead>
-        <tr>
-            <th>
-                <span>Zadania skończone</span><span class="skonczone">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </span>
-                <div id="canvas-holder-1"><canvas id="chart-area-1" width="50" height="50" /></div>
-            </th>
-            <th>
-                <span>Zadania nieskończone</span><span class="nie-skonczone">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </span>
-                <div id="canvas-holder-2"><canvas id="chart-area-2" width="50" height="50" /></div>
-            </th>
-        </tr>
-    </thead>
     <tbody>
         @foreach (EasyERP.Models.Task item in Model)
         {
@@ -59,17 +39,14 @@
                             switch (item.Priority)
                             {
                                 case 1:
-                                    className = "wazne";
+                                    className = "pilne";
 
                                     break;
                                 case 2:
-                                    className = "pilne";
+                                    className = "wazne";
                                     break;
                                 case 3:
                                     className = "przypomienie";
-                                    break;
-                                case 4:
-                                    className = "spoznione";
                                     break;
                             }
                             <span class=@className>@type.Text</span>

@@ -112,9 +112,9 @@ namespace EasyERP.Controllers
             //Pilne
             var listItem = new List<SelectListItem>();
             listItem.Add(new SelectListItem() { Text = "Priorytet", Value = "0" });
-            listItem.Add(new SelectListItem() { Text = "Ważne", Value = "1" });
-            listItem.Add(new SelectListItem() { Text = "Spóznione", Value = "2" });
-            listItem.Add(new SelectListItem() { Text = "Pilne", Value = "3" });
+            listItem.Add(new SelectListItem() { Text = "Wysoki", Value = "1" });
+            listItem.Add(new SelectListItem() { Text = "Średni", Value = "2" });
+            listItem.Add(new SelectListItem() { Text = "Niski", Value = "3" });
 
             return listItem;
         }

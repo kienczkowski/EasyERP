@@ -22,8 +22,10 @@ namespace EasyERP.Models
         public string Seller { get; set; }
         [DisplayName("Data utworzenia")]
         [Required]
+        [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
         [DisplayName("Data zakończenia")]
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
         [DisplayName("Cena netto")]
         public decimal ListPrice { get; set; }

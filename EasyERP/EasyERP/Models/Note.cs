@@ -11,6 +11,7 @@ namespace EasyERP.Models
         [Key]
         public int ID { get; set; }
         public string Description { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? EnteredOn { get; set; }
         public string EnteredBy { get; set; }
 

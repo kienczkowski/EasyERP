@@ -28,6 +28,7 @@ namespace EasyERP.Models
         [DisplayName("Zapamiętać")]
         public bool RememberMe { get; set; }
         [DisplayName("Data dodania")]
+        [DataType(DataType.Date)]
         public DateTime? EnteredOn { get; set; }
         [DisplayName("E-mail")]
         [Required(ErrorMessage = "Pole imię jest wymagane")]

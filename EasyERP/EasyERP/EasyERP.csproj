@@ -185,6 +185,7 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.datetimepicker.css" />
     <Content Include="Content\themes\base\menu.css" />
     <Content Include="Content\themes\base\progressbar.css" />
     <Content Include="Content\themes\base\resizable.css" />
@@ -200,10 +201,12 @@
     <None Include="Properties\PublishProfiles\kienczkowski.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
+    <Content Include="Scripts\CommonAction.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.1.js" />
     <Content Include="Scripts\jquery-ui.min-1.11.1.js" />
+    <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -308,6 +311,18 @@
     <Compile Include="Migrations\201411011322343_Mig17.cs" />
     <Compile Include="Migrations\201411011322343_Mig17.Designer.cs">
       <DependentUpon>201411011322343_Mig17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411021125073_migr18.cs" />
+    <Compile Include="Migrations\201411021125073_migr18.Designer.cs">
+      <DependentUpon>201411021125073_migr18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411021125327_migr19.cs" />
+    <Compile Include="Migrations\201411021125327_migr19.Designer.cs">
+      <DependentUpon>201411021125327_migr19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411021205056_migr20.cs" />
+    <Compile Include="Migrations\201411021205056_migr20.Designer.cs">
+      <DependentUpon>201411021205056_migr20.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
@@ -419,6 +434,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411011322343_Mig17.resx">
       <DependentUpon>201411011322343_Mig17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411021125073_migr18.resx">
+      <DependentUpon>201411021125073_migr18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411021125327_migr19.resx">
+      <DependentUpon>201411021125327_migr19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411021205056_migr20.resx">
+      <DependentUpon>201411021205056_migr20.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

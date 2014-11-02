@@ -12,13 +12,21 @@ namespace EasyERP.Models
         [Key]
         [DisplayName("Numer zadania")]
         public int TaskId { get; set; }
+        [Required(ErrorMessage = "Typ zadania jest wymagany")]
         [DisplayName("Typ zadania")]
+        [Range(1, 3, ErrorMessage="Typ zadnia jest wymagany")]
         public int TaskType { get; set; }
         [DisplayName("Priorytet")]
+        [Required(ErrorMessage = "Priorytet zadania jest wymagany")]
+        [Range(1, 3, ErrorMessage="Priorytet zadania jest wymagany")]
         public int Priority { get; set; }
         [DisplayName("Data zadania")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Data zadania jest wymagana")]
         public DateTime? TaskDate { get; set; }
         [DisplayName("Opis zadania")]
+        [Required(ErrorMessage = "Opis zadania jest wymagany")]
         public string Description { get; set; }
         [DisplayName("Status zadania")]
         [DefaultValue(1)]

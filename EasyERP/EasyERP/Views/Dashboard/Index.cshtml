@@ -7,8 +7,30 @@
 <div id="zadania">
     <h1>Zadania do wykonania</h1>
     @Html.ActionLink("Pokaż wszystkie", "Index", "Dashboard", "", htmlAttributes: new { @class = "button" })
-    <div id="allTask">
-        @Html.Partial("_AllTask", @Model)
-    </div>
+    <table id="lista">
+        <thead>
+            <tr>
+                <th>
+                    <span>Zadania skończone</span><span class="skonczone">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </span>
+                    <div id="canvas-holder-1"><canvas id="chart-area-1" width="50" height="50" /></div>
+                </th>
+                <th>
+                    <span>Zadania nieskończone</span><span class="nie-skonczone">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </span>
+                    <div id="canvas-holder-2"><canvas id="chart-area-2" width="50" height="50" /></div>
+                </th>
+            </tr>
+        </thead>
+        </table>
+        <div id="allTask">
+            @Html.Partial("_AllTask", @Model)
+        </div>
 </div>
 @Html.Partial("_Calendar")
