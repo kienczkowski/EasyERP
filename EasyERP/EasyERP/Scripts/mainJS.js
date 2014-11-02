@@ -1,11 +1,18 @@
 ﻿/// <reference path="jquery-2.1.1.min.js" />
 /// <reference path="jquery-2.1.0-vsdoc.js" />
+/// <reference path="jquery-ui-1.11.1.js" />
 $(document).ready(function () {
 
 
     var controllerName = $("#controllerName").val();
-    if (controllerName == "Dashboard")
+    if (controllerName == "Dashboard") {
+
         setInterval(TaskPercent, 5000);
+
+        al = 0;
+        kalendarz = document.getElementById('data');
+        printCalendar();
+    }
 
     var rozwin = document.getElementById('rozwin');
     var menu = document.getElementById('menu');
@@ -25,10 +32,7 @@ $(document).ready(function () {
         }
     };
 
-    al = 0;
-    kalendarz = document.getElementById('data');
-
-    printCalendar();
+    $('input[type="datetime"]').datepicker();
 
     $("#addProduct-modalPopUp").dialog({
         autoOpen: false,
