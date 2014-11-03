@@ -10,6 +10,7 @@
     @Html.AntiForgeryToken()
 
     <h1 class="bold">Usuwanie zamówienie</h1>
+    @Html.ActionLink("Anuluj", "Orders", new { }, htmlAttributes: new { @class = "button" })
     <input type="submit" value="Usuń" class="button zapisz transition" />
     <table class="edit">
         <tr>

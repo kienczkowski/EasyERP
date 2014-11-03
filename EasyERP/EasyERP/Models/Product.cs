@@ -24,9 +24,9 @@ namespace EasyERP.Models
         [DisplayName("Ilość")]
         public int Amount { get; set; }
         [DisplayName("Cena netto")]
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         public decimal ListPrice { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         [DisplayName("Cena brutto")]
         public decimal PurchasePrice { get; set; }
         [DisplayName("Ilość w paczce")]

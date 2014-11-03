@@ -48,6 +48,7 @@ namespace EasyERP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Order order = db.Orders.Find(id);
+
             if (order == null)
             {
                 return HttpNotFound();
@@ -91,7 +92,8 @@ namespace EasyERP.Controllers
                 {
                     using (var dbContext = new DBContext())
                     {
-
+                        decimal sallary1 = 0;
+                        decimal sallary2 = 0;
                         List<Product> basketProduct = GetBasketProduct();
                         if (basketProduct.Count == 0)
                         {
@@ -103,13 +105,19 @@ namespace EasyERP.Controllers
                         Client client = dbContext.Clients.Find(model.ClientId);
                         Order newOrder = new Order();
                         newOrder.StartDate = DateTime.Now;
+                        if (model.Order.EndDate != null)
+                            newOrder.EndDate = model.Order.EndDate;
                         newOrder.Seller = this.Session["FirstName"] != null && this.Session["LastName"] != null ? this.Session["FirstName"].ToString() + this.Session["LastName"].ToString() : "Brak";
                         newOrder.Client = client;
                         foreach (Product product in basketProduct)
                         {
                             Product item = dbContext.Products.Find(product.ProductId);
                             newOrder.Products.Add(item);
+                            sallary1 += product.ListPrice;
+                            sallary2 += product.PurchasePrice;
                         }
+                        newOrder.ListPrice = sallary1;
+                        newOrder.PurchasePrice = sallary2;
                         dbContext.Orders.Add(newOrder);
                         dbContext.SaveChanges();
                         NumberProducts = null;
@@ -158,15 +166,37 @@ namespace EasyERP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AddOrderProducts order)
+        public ActionResult Edit(AddOrderProducts model)
         {
             if (ModelState.IsValid)
             {
-                //db.Entry(order).State = EntityState.Modified;
-                //db.SaveChanges();
+                decimal sallary1 = 0;
+                decimal sallary2 = 0;
+                List<Product> basketProduct = GetBasketProduct();
+                if (basketProduct.Count == 0)
+                {
+                    model.Products = GetAllProducts();
+                    model.Orders = GetOrders(model.ClientId);
+                    model.ClientId = model.ClientId;
+                    throw new Exception("Nie wybrano żadengo produktu");
+                }
+                Order newOrder = db.Orders.Find(model.Order.OrderId);
+                newOrder.Products = model.Products;
+                newOrder.Seller = model.Order.Seller;
+                newOrder.StartDate = model.Order.StartDate;
+                newOrder.EndDate = model.Order.EndDate;
+                foreach (Product product in basketProduct)
+                {
+                    Product item = db.Products.Find(product.ProductId);
+                    newOrder.Products.Add(item);
+                    sallary1 += product.ListPrice;
+                    sallary2 += product.PurchasePrice;
+                }
+                db.Entry(newOrder).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Orders");
             }
-            return View(order);
+            return View(model);
         }
 
         // GET: Orders/Delete/5
@@ -211,7 +241,7 @@ namespace EasyERP.Controllers
             base.Dispose(disposing);
         }
 
-        public static List<Order> GetOrders(int ClientId)
+        public static List<Order> GetOrders(int? ClientId)
         {
             List<Order> orders = null;
             using (DBContext db = new DBContext())

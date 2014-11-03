@@ -1,59 +1,84 @@
 ﻿@model EasyERP.Models.Order
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegóły zamówienia";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Seller)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Seller)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ListPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ListPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PurchasePrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PurchasePrice)
-        </dd>
-
-    </dl>
+<div id="dane-konta">
+    <h1 class="bold">Szczegóły zamówienie</h1>
+    @Html.ActionLink("Anuluj", "Orders", new { }, htmlAttributes: new { @class = "button" })
+    @Html.ActionLink("Edytuj", "Edit", new { @id = Model.OrderId }, htmlAttributes: new { @class = "button" })
+    <table class="edit">
+        <tr>
+            <td colspan="2" align="center">
+                <h2>Dane dokumentu</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Seller)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Seller, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Client.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Client.FirstName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Client.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Client.LastName)
+            </td>
+        </tr>
+    </table>
+    <table class="edit">
+        <thead>
+            <tr>
+                <th>Produkty</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+                <th>Akcja</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EasyERP.Models.Product product in @Model.Products)
+            {
+                <tr>
+                    <td>@Html.Raw(product.Name)</td>
+                    <td>@Html.Raw(product.Amount.ToString())</td>
+                    <td>@Html.Raw(product.PurchasePrice.ToString())</td>
+                </tr>
+            }
+            <tr class="empty">
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

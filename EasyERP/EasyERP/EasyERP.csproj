@@ -324,6 +324,14 @@
     <Compile Include="Migrations\201411021205056_migr20.Designer.cs">
       <DependentUpon>201411021205056_migr20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411032152169_Mig21.cs" />
+    <Compile Include="Migrations\201411032152169_Mig21.Designer.cs">
+      <DependentUpon>201411032152169_Mig21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411032153287_Mig22.cs" />
+    <Compile Include="Migrations\201411032153287_Mig22.Designer.cs">
+      <DependentUpon>201411032153287_Mig22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Company.cs" />
@@ -443,6 +451,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411021205056_migr20.resx">
       <DependentUpon>201411021205056_migr20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411032152169_Mig21.resx">
+      <DependentUpon>201411032152169_Mig21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411032153287_Mig22.resx">
+      <DependentUpon>201411032153287_Mig22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

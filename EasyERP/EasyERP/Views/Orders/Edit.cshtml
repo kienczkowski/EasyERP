@@ -9,11 +9,11 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger alert" })
-    @Html.HiddenFor(m => m.ClientId)
-
+    
     <h1 class="bold">Edytuj zamówienie</h1>
     <input type="submit" value="Zapisz" class="button zapisz transition" />
     <a id="open-dialog" href="#" class="button">Dodaj produkt</a>
+    @Html.HiddenFor(model => model.ClientId)
     <table class="edit">
         <tr>
             <td colspan="2" align="center">
@@ -49,7 +49,7 @@
                 Klient
             </td>
             <td>
-                @Html.DropDownListFor(model => model.ClientId, new SelectList(Model.Clients, "ClientId", "FirstName", Model.ClientId), "Wybierz klienta", new { id = "Clients" })
+                @Html.DropDownListFor(model => model.ClientId, new SelectList(Model.Clients, "ClientId", "FirstName", Model.ClientId), "Wybierz klienta", new { id = "ClientId" })
             </td>
         </tr>
         <tr>

@@ -17,8 +17,7 @@ namespace EasyERP.Models.HelpModels
             Clients = new List<Client>();
             Order = new Order();
         }
-        [Required(ErrorMessage="Pole Klient jest wymagane")]
-        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage=("Pole klient jest wymagane"))]
         public int ClientId { get; set; }
         public Order Order { get; set; }
         public List<Order> Orders { get; set; }
