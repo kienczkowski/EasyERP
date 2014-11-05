@@ -28,7 +28,7 @@
                 @Html.TextBoxFor(m => m.Password, htmlAttributes: new { name = "haslo", id = "haslo", Value = "Wpisz hasło...", onfocus = "if (this.value == 'Wpisz hasło...') {this.value = '';} this.type = 'password'", onblur = "if (this.value == '')  {this.value = 'Wpisz hasło...'; this.type = 'text';}" })
                 @Html.ValidationMessageFor(m => m.Password)
                 <input type="submit" name="zaloguj" id="zaloguj" value="Zaloguj się" />
-                @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { id = "zapamietaj", name = "zapamietaj" })<label id="zaznacz" for="zapamietaj"></label>
+                @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { id="zapamietaj" })<label id="zaznacz" for="zapamietaj"></label>
                 if (!String.IsNullOrEmpty(ViewBag.Error))
                 {
                     <table>

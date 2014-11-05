@@ -55,7 +55,8 @@
                     }
                     <span class="opis">@item.Description</span>
                     <span class="data">@item.TaskDate</span>
-                    @Ajax.ActionLink("Wybierz", "SelectTask", new { @taskId = item.TaskId }, new AjaxOptions { UpdateTargetId = "allTask", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                    <a href="/Dashboard/SelectTask?taskId=@item.TaskId"></a>
+                    @*@Ajax.ActionLink("Wybierz", "SelectTask", new { @taskId = item.TaskId }, new AjaxOptions { UpdateTargetId = "allTask", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @id="select"})*@
                 </td>
             </tr>
             @Html.Hidden("UserId", item.User.UserId)

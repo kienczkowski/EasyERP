@@ -7,12 +7,15 @@ using System.Web.Security;
 using EasyERP.Context;
 using EasyERP.HelperClass;
 using EasyERP.Models;
+using System.Data.Entity;
 
 namespace EasyERP.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        DBContext db = new DBContext();
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -29,10 +32,13 @@ namespace EasyERP.Controllers
                     var password = Encryption.GetSaltedHash(user.Password, user.Name);
                     this.Session.Add("LoginName", user.Name);
                     this.Session.Add("IdUser", user.UserId);
-                    List<User> users = db.Users.Where(u => u.Name == user.Name && u.Password == password).ToList();
-                    if (users.Count > 0)
+                    User userFind = db.Users.Where(u => u.Name == user.Name && u.Password == password).FirstOrDefault();
+                    if (userFind != null)
                     {
-                        FormsAuthentication.SetAuthCookie(user.Name, false);
+                        FormsAuthentication.SetAuthCookie(user.Name, user.RememberMe);
+                        userFind.RememberMe = user.RememberMe;
+                        db.Entry(userFind).State = EntityState.Modified;
+                        db.SaveChanges();
                         return RedirectToAction("Index", "Dashboard");
                     }
                     else

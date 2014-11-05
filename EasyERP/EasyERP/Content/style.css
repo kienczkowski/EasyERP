@@ -247,7 +247,7 @@ table.edit td:nth-child(2n+1) {
 	vertical-align: middle;
 }
 
-#zapamietaj:checked + label#zaznacz:before {
+#zapamietaj:checked + #zaznacz:before {
 	background: #e9e9e9 url(../Content/images/zaznaczenie.png) no-repeat center center;
 }
 
@@ -711,6 +711,11 @@ section#content #lista {
 #lista tbody td {
 	text-align: left;
 	border: 1px solid #dee4ea;
+}
+
+#lista tbody tr:hover {
+	cursor: pointer;
+    background-color: #47b9c0 !important;
 }
 
 #lista tbody span {

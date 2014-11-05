@@ -15,6 +15,17 @@ $(document).ready(function () {
         al = 0;
         kalendarz = document.getElementById('data');
         printCalendar();
+
+        $('#lista tr').click(function () {
+            var select = $(this).find("a");
+            var url = select.attr("href");
+            $.ajax({
+                url: url,
+                success: function (html) {
+                    $('#allTask').html(html);
+                }
+            });
+        });
     }
 
     var rozwin = document.getElementById('rozwin');
