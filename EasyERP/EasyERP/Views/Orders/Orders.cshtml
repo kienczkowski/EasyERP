@@ -1,5 +1,5 @@
-﻿@model IEnumerable<EasyERP.Models.Order>
-
+﻿@model PagedList.IPagedList<EasyERP.Models.Order>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Zamówienia";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,19 +12,19 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Seller)
+                    @Html.DisplayNameFor(model => model.First().Seller)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
+                    @Html.DisplayNameFor(model => model.First().StartDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
+                    @Html.DisplayNameFor(model => model.First().EndDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ListPrice)
+                    @Html.DisplayNameFor(model => model.First().ListPrice)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PurchasePrice)
+                    @Html.DisplayNameFor(model => model.First().PurchasePrice)
                 </th>
                 <th></th>
             </tr>
@@ -56,12 +56,9 @@
                 </tr>
             }
             <tr>
-                <td colspan="6">
-                    <form method="get">
-                        <a href="#" id="wstecz"></a>
-                        <input type="text" value="1" name="page"><span>/ 5</span>
-                        <a href="#" id="dalej"></a>
-                    </form>
+                <td colspan="13" align="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Orders", new { page }))
                 </td>
             </tr>
         </tbody>

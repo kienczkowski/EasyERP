@@ -19,7 +19,7 @@
             <li><a href="#">@Html.ActionLink("Zamówienia", "Orders", "Orders")</a></li>
             <li><a href="#">@Html.ActionLink("Magazyn", "Index", "Products")</a></li>
             <li><a href="#">@Html.ActionLink("Dokumenty", "Index", "Dashboard")</a></li>
-            <li><a href="#">@Html.ActionLink("Analiza", "Index", "Dashboard")</a></li>
+            <li><a href="#">@Html.ActionLink("Analiza", "Index", "Reports")</a></li>
         </ul>
     </nav>
     <section id="content">
@@ -27,7 +27,7 @@
             <div class="wrapper">
                 <form method="post" class="alignleft align">
                     <input type="submit" name="szukaj" value=" " class="transition">
-                    <input type="text" name="fraza" value="Wyszukaj klienta, zadanie, albo dokument..." onfocus="if (this.value == 'Wyszukaj klienta, zadanie, albo dokument...') {this.value = '';}" onblur="if (this.value == '')  {this.value = 'Wyszukaj klienta, zadanie, albo dokument...';}">
+                    <input type="text" id="searcher" name="fraza" value="Wyszukaj klienta, zadanie, albo dokument..." onfocus="if (this.value == 'Wyszukaj klienta, zadanie, albo dokument...') {this.value = '';}" onblur="if (this.value == '')  {this.value = 'Wyszukaj klienta, zadanie, albo dokument...';}">
                 </form>
                 <div class="alignright align">
                     Administrator
@@ -60,6 +60,16 @@
                     <tr>
                         <td align="center">
                             <div class="alert align error max-top">Błąd: @ViewBag.Error</div>
+                        </td>
+                    </tr>
+                </table>
+            }
+            @if (!String.IsNullOrEmpty(ViewBag.Success))
+            {
+                <table width="100%" id="success">
+                    <tr>
+                        <td align="center">
+                            <div class="alert alignleft align info max-top">@ViewBag.Success</div>
                         </td>
                     </tr>
                 </table>

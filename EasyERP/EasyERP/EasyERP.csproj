@@ -240,6 +240,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Global.asax.cs">
@@ -332,6 +333,14 @@
     <Compile Include="Migrations\201411032153287_Mig22.Designer.cs">
       <DependentUpon>201411032153287_Mig22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411081809545_mig23.cs" />
+    <Compile Include="Migrations\201411081809545_mig23.Designer.cs">
+      <DependentUpon>201411081809545_mig23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411081820528_mig24.cs" />
+    <Compile Include="Migrations\201411081820528_mig24.Designer.cs">
+      <DependentUpon>201411081820528_mig24.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Company.cs" />
@@ -387,6 +396,7 @@
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Orders.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -457,6 +467,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411032153287_Mig22.resx">
       <DependentUpon>201411032153287_Mig22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411081809545_mig23.resx">
+      <DependentUpon>201411081809545_mig23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411081820528_mig24.resx">
+      <DependentUpon>201411081820528_mig24.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

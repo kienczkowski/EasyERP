@@ -1,5 +1,6 @@
 ﻿using EasyERP.Context;
 using EasyERP.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,12 @@ namespace EasyERP.Controllers
             ViewData["TaskType"] = CreateTaskType();
             ViewData["Priority"] = CreatePriority();
             var user = db.Users.Where(m => m.Name == User.Identity.Name).FirstOrDefault();
-            if(user == null)
+            if (user == null)
                 return HttpNotFound();
             if (Session["FirstName"] == null)
                 Session["FirstName"] = user.FirstName;
-            if(Session["LastName"] == null)
-                    Session["LastName"] = user.LastName;
+            if (Session["LastName"] == null)
+                Session["LastName"] = user.LastName;
             var listTask = db.Tasks.ToList();
             return View(listTask);
         }
@@ -93,7 +94,7 @@ namespace EasyERP.Controllers
         [HttpPost]
         public ActionResult FinishTask(int? taskId)
         {
-            if(taskId == null)
+            if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -101,6 +102,26 @@ namespace EasyERP.Controllers
             task.Status = 2; //zakończone
             db.Entry(task).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Searcher(string phrase)
+        {
+            //wyszukujemy w klientach
+            int clientIdOut;
+            int id = (int.TryParse(phrase, out id) == true ? int.Parse(phrase) : -1);
+            IEnumerable<Client> clients = db.Clients.Where(c => c.ClientId == id || (c.FirstName + " " + c.LastName) == phrase || c.Company == phrase ).ToList();
+            if(clients.Count() > 0)
+            {
+                return View("../Clients/AllClients", clients.ToPagedList(1, Global.Global.pageSize));
+            }
+
+            IEnumerable<Order> orders = db.Orders.Where(o => o.OrderId == id || o.Seller == phrase);
+            if(orders.Count() > 0)
+            {
+                return View("../Orders/Orders", orders.ToPagedList(1, Global.Global.pageSize));
+            }
             return RedirectToAction("Index");
         }
 

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using EasyERP.Context;
 using EasyERP.Models;
 using EasyERP.Models.HelpModels;
+using PagedList;
 
 namespace EasyERP.Controllers
 {
@@ -32,10 +33,14 @@ namespace EasyERP.Controllers
         }
 
         // GET: Orders
-        public ActionResult Orders(int? clientId)
+        public ActionResult Orders(int? clientId, int? page)
         {
             if (clientId == null)
-                return View(db.Orders.ToList());
+            {
+                int pageNumber = page ?? 1;
+                List<Order> orders = db.Orders.ToList();
+                return View(orders.ToPagedList(pageNumber, Global.Global.pageSize));
+            }
             else
                 return View(db.Orders.Where(o => o.Client.ClientId == clientId).ToList());
         }

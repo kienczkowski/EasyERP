@@ -1084,7 +1084,7 @@ form#produkty td {
 	vertical-align: top;
 }
 
-#dane-konta input[type="text"], form#produkty input[type="text"], form#produkty textarea, .edit input[type="password"], .edit input[type="datetime"], .edit input[type="date"], .edit select {
+#dane-konta input[type="text"], input[type="email"], form#produkty input[type="text"], form#produkty textarea, .edit input[type="password"], .edit input[type="datetime"], .edit input[type="date"], .edit input[type="email"], .edit select {
 	display: block;
 	position: absolute;
 	top: -1px;

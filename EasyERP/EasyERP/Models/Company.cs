@@ -14,8 +14,6 @@ namespace EasyERP.Models
         public int CompanyId { get; set; }
         [DisplayName("Nazwa firmy")]
         public string NameCompany { get; set; }
-        [DisplayName("Kod firmy")]
-        public string CompanyCode { get; set; }
         [DisplayName("Regon")]
         public string Regon { get; set; }
         [DisplayName("Nip")]

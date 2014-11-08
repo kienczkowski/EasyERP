@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using EasyERP.Context;
 using EasyERP.Models;
 using System.Data.Entity.Core.Objects;
+using PagedList;
 
 namespace EasyERP.Controllers
 {
@@ -18,9 +19,11 @@ namespace EasyERP.Controllers
         private DBContext db = new DBContext();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Products.ToList());
+            int pageNumber = page ?? 1;
+            List<Product> products = db.Products.ToList();
+            return View(products.ToPagedList(pageNumber, Global.Global.pageSize));
         }
 
         // GET: Products/Details/5
@@ -53,6 +56,7 @@ namespace EasyERP.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.Code = (db.Products.Max(m => m.ProductId) + 1).ToString();
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");

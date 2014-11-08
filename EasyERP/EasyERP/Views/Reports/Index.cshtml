@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Raporty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="produkty" class="mag">
+    <h1 class="bold">Raporty</h1>
+    @Html.ActionLink("Raport dzienny", "Index", "", htmlAttributes: new { @class = "button dodaj" })
+    @Html.ActionLink("Raport miesięczny", "Index", "", htmlAttributes: new { @class = "button dodaj" })
+    @Html.ActionLink("Sprzedawca miesiąca", "Index", "", htmlAttributes: new { @class = "button dodaj" })
+</div>
+<div class="min-padding">
+    <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+

@@ -1,5 +1,6 @@
 ﻿@model EasyERP.Models.Client
 
+@Scripts.Render("~/bundles/jquery")
 @if (Model != null)
 {
     @Html.ActionLink("Anuluj", "DetailsClient", "Clients", new { id = Model.ClientId }, htmlAttributes: new { @class = "button" })
@@ -9,13 +10,12 @@ else
     @Html.ActionLink("Anuluj", "AllClients", "", htmlAttributes: new { @class = "button" })
 }
 <input type="submit" value="Zapisz" class="button zapisz transition">
-@Html.HiddenFor(m => m.ClientId)
 <table>
     <tr>
         <td>Nazwa firmy</td>
         <td>@Html.EditorFor(m => m.Company)</td>
         <td>Kod firmy</td>
-        <td>@Html.EditorFor(m => m.CompanyCode)</td>
+        <td>@Html.DisplayFor(m => m.CompanyCode)</td>
     </tr>
     <tr>
         <td>Imię</td>
@@ -66,3 +66,4 @@ else
         <td colspan="2"></td>
     </tr>
 </table>
+@Html.ValidationSummary(false, "", new { @class = "text-danger alert" })

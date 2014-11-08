@@ -32,6 +32,7 @@ namespace EasyERP.Models
         public DateTime? EnteredOn { get; set; }
         [DisplayName("E-mail")]
         [Required(ErrorMessage = "Pole imię jest wymagane")]
+        [EmailAddress(ErrorMessage="Adres e-mail ma nie poprawną formę")]
         public string Email { get; set; }
     }
 }

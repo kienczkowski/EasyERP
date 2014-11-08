@@ -40,6 +40,7 @@ namespace EasyERP.Controllers
                         {
                             client.Notes.ToList()[0].EnteredOn = DateTime.Now;
                             client.Notes.ToList()[0].EnteredBy = "System";
+                            client.CompanyCode = (db.Clients.Max(m => m.ClientId) + 1).ToString();
                             db.Clients.Add(client);
                             db.SaveChanges();
 

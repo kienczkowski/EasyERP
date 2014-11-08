@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EasyERP.Models.Product>
+﻿@model PagedList.IPagedList<EasyERP.Models.Product>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Magazyn";
@@ -12,31 +13,31 @@
         <thead>
             <tr>
                 <td>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.First().Name)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.Code)
+                    @Html.DisplayNameFor(model => model.First().Code)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.Amount)
+                    @Html.DisplayNameFor(model => model.First().Amount)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.ListPrice)
+                    @Html.DisplayNameFor(model => model.First().ListPrice)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.PurchasePrice)
+                    @Html.DisplayNameFor(model => model.First().PurchasePrice)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.QuantityPackage)
+                    @Html.DisplayNameFor(model => model.First().QuantityPackage)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.Category)
+                    @Html.DisplayNameFor(model => model.First().Category)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.DeliveryDate)
+                    @Html.DisplayNameFor(model => model.First().DeliveryDate)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.First().Description)
                 </td>
                 <td>Edytuj/Usuń</td>
             </tr>
@@ -80,12 +81,9 @@
                 </tr>
             }
             <tr>
-                <td colspan="5">
-                    <form method="get">
-                        <a href="#" id="wstecz"></a>
-                        <input type="text" value="1" name="page"><span>/ 5</span>
-                        <a href="#" id="dalej"></a>
-                    </form>
+                <td colspan="13" align="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                 </td>
             </tr>
         </tbody>

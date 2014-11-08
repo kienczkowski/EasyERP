@@ -59,7 +59,8 @@ namespace EasyERP.Controllers
                 }
 
             }
-            return RedirectToAction("Basic");
+            ViewBag.Success = "Zapisano ustawienia firmy";
+            return View("Basic");
         }
 
         [HttpPost]

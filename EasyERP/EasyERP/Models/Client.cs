@@ -19,7 +19,6 @@ namespace EasyERP.Models
         public int ClientId { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
         public string Company { get; set; }
-        [Required]
         public string CompanyCode { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
         [DisplayName("Imię klienta")]
@@ -41,6 +40,7 @@ namespace EasyERP.Models
         public string Country { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
         public string Phone { get; set; }
+        [EmailAddress( ErrorMessage = "Adres e-mail nie ma poprwanej formy")]
         [Required(ErrorMessage = "Pole jest wymagane.")]
         public string EmailAddress { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane.")]
