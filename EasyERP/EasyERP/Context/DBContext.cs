@@ -19,16 +19,12 @@ namespace EasyERP.Context
         public DbSet<LogError> LogError { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<ProductOrders> ProductOrders { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Order>().HasMany<Product>(s => s.Products).WithMany(c => c.Orders).Map(c =>
-            {
-                c.MapLeftKey("OrderId");
-                c.MapRightKey("ProductId");
-                c.ToTable("OrdersProducts");
-            });
+            modelBuilder.Entity<ProductOrders>().HasKey(m => new { m.ProductId, m.OrderId });
             base.OnModelCreating(modelBuilder);
-        } 
+        }
     }
 }

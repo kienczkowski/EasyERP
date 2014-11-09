@@ -58,34 +58,9 @@
             </td>
         </tr>
     </table>
-    <table class="edit">
-        <thead>
-            <tr>
-                <th>Produkty</th>
-                <th>Ilość</th>
-                <th>Cena</th>
-                <th>Akcja</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (EasyERP.Models.Product product in @Model.Basket)
-            {
-                <tr>
-                    <td>@product.Name</td>
-                    @Html.Hidden("Product" + product.ProductId, product.ProductId)
-                    <td>@product.Amount</td>
-                    <td>@product.PurchasePrice</td>
-                    <td class="akcja"><a href="#" class="true"></a><a href="#" class="false"></a><a href="#" class="delete"></a></td>
-                </tr>
-            }
-            <tr class="empty">
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="PanelProducts">
+        @Html.Partial("_Products", Model.Basket)
+    </div>
 }
 @*<div id="operacje">
     <h2 class="bold">Operacje</h2>
@@ -142,15 +117,29 @@
     <table>
         @foreach (EasyERP.Models.Product product in @Model.Products)
         {
-            <tr>
-                <td>
-                    @product.Name
-                </td>
-                <td>
-                    @Html.ActionLink("Dodaj", "AddProductToBasket", "Orders", new { ProductId = product.ProductId, ClientId = Model.ClientId }, null)
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <td align="center">Nazwa produktu</td>
+                    <td align="center">Ilość</td>
+                    <td align="center">Akcja</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">
+                        @product.Name
+                        @Html.HiddenFor(m => product.ProductId)
+                    </td>
+                    <td align="center">
+                        Ilość: @Html.TextBox("Amount", "1", htmlAttributes: new { @name = "Amount", @id = "Amount" + product.ProductId })
+                    </td>
+                    <td align="center">
+                        @Ajax.ActionLink("Dodaj", "AddProductToBasket", new { ProductId = product.ProductId, ClientId = Model.ClientId }, new AjaxOptions { UpdateTargetId = "PanelProducts", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @id = "select", @onclick = "AmountCheck(this);", @productId = product.ProductId })
+                    </td>
+                </tr>
+            </tbody>
         }
     </table>
 </div>
+
 @Scripts.Render("~/bundles/Common")

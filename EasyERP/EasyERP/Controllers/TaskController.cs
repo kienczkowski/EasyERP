@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace EasyERP.Controllers
 {
+    [Authorize]
     public class TaskController : ApiController
     {
         DBContext db = new DBContext();

@@ -13,22 +13,23 @@ using PagedList;
 
 namespace EasyERP.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private DBContext db = new DBContext();
 
-        private string NumberProducts
+        private List<Basket> Basket
         {
             get
             {
-                return Session["NumberProducts"] as string;
+                if (Session["NumberProducts"] == null)
+                    return new List<Basket>();
+                else
+                    return Session["NumberProducts"] as List<Basket>;
             }
             set
             {
-                if (Session["NumberProducts"] != null)
-                    Session["NumberProducts"] = value;
-                else
-                    Session.Add("NumberProducts", value);
+                Session["NumberProducts"] = value;
             }
         }
 
@@ -78,8 +79,8 @@ namespace EasyERP.Controllers
             }
 
             model.Products = GetAllProducts();
-            if (NumberProducts != null)
-                model.Basket = GetBasketProduct();
+            if (Basket != null)
+                model.Basket = Basket;
             return View(model);
         }
 
@@ -99,7 +100,7 @@ namespace EasyERP.Controllers
                     {
                         decimal sallary1 = 0;
                         decimal sallary2 = 0;
-                        List<Product> basketProduct = GetBasketProduct();
+                        List<Basket> basketProduct = Basket;
                         if (basketProduct.Count == 0)
                         {
                             model.Products = GetAllProducts();
@@ -114,18 +115,18 @@ namespace EasyERP.Controllers
                             newOrder.EndDate = model.Order.EndDate;
                         newOrder.Seller = this.Session["FirstName"] != null && this.Session["LastName"] != null ? this.Session["FirstName"].ToString() + this.Session["LastName"].ToString() : "Brak";
                         newOrder.Client = client;
-                        foreach (Product product in basketProduct)
+                        foreach (Basket product in basketProduct)
                         {
                             Product item = dbContext.Products.Find(product.ProductId);
-                            newOrder.Products.Add(item);
-                            sallary1 += product.ListPrice;
-                            sallary2 += product.PurchasePrice;
+                            newOrder.ProductOrders.Add(new ProductOrders() { ProductId = product.ProductId, OrderId = model.Order.OrderId, Amount = product.Amount });
+                            sallary1 += product.Product.ListPrice;
+                            sallary2 += product.Product.PurchasePrice;
                         }
                         newOrder.ListPrice = sallary1;
                         newOrder.PurchasePrice = sallary2;
                         dbContext.Orders.Add(newOrder);
                         dbContext.SaveChanges();
-                        NumberProducts = null;
+                        Basket = null;
                     }
                 }
                 else
@@ -145,7 +146,7 @@ namespace EasyERP.Controllers
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
-            NumberProducts = null;
+            Basket = null;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -160,9 +161,7 @@ namespace EasyERP.Controllers
             model.Order = order;
             model.ClientId = order.Client.ClientId;
             model.Products = GetAllProducts();
-            model.Basket = new List<Product>(order.Products);
-            //if (NumberProducts != null)
-            //    model.Basket = GetBasketProduct();
+            model.Basket = GetBasket(order.ProductOrders);
             return View(model);
         }
 
@@ -177,7 +176,7 @@ namespace EasyERP.Controllers
             {
                 decimal sallary1 = 0;
                 decimal sallary2 = 0;
-                List<Product> basketProduct = GetBasketProduct();
+                List<Basket> basketProduct = Basket;
                 if (basketProduct.Count == 0)
                 {
                     model.Products = GetAllProducts();
@@ -186,17 +185,17 @@ namespace EasyERP.Controllers
                     throw new Exception("Nie wybrano żadengo produktu");
                 }
                 Order newOrder = db.Orders.Find(model.Order.OrderId);
-                newOrder.Products = model.Products;
-                newOrder.Seller = model.Order.Seller;
-                newOrder.StartDate = model.Order.StartDate;
-                newOrder.EndDate = model.Order.EndDate;
-                foreach (Product product in basketProduct)
+                newOrder.ProductOrders = new List<ProductOrders>();
+                foreach (Basket item in basketProduct)
                 {
-                    Product item = db.Products.Find(product.ProductId);
-                    newOrder.Products.Add(item);
+                    newOrder.ProductOrders.Add(new ProductOrders() { ProductId = item.ProductId, Amount = item.Amount, OrderId = newOrder.OrderId });
+                    Product product = db.Products.Find(item.ProductId);
                     sallary1 += product.ListPrice;
                     sallary2 += product.PurchasePrice;
                 }
+                newOrder.Seller = model.Order.Seller;
+                newOrder.StartDate = model.Order.StartDate;
+                newOrder.EndDate = model.Order.EndDate;
                 db.Entry(newOrder).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Orders");
@@ -231,10 +230,32 @@ namespace EasyERP.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddProductToBasket(int ProductId, int ClientId)
+        public ActionResult AddProductToBasket(int ProductId, int ClientId, int Amount)
         {
-            NumberProducts += ProductId + ",";
-            return RedirectToAction("Create", new { ClientId = ClientId });
+            bool flag = true;
+            Product product = db.Products.Find(ProductId);
+            List<Basket> basket = Basket;
+            foreach (Basket thisSame in basket)
+            {
+                if (thisSame.ProductId == ProductId && thisSame.Amount == Amount)
+                {
+                    flag = false;
+                    break;
+                }
+                else if (thisSame.ProductId == ProductId && thisSame.Amount != Amount)
+                {
+                    flag = false;
+                    thisSame.Amount = Amount;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                Basket item = new Basket() { ProductId = ProductId, Amount = Amount, Product = product };
+                basket.Add(item);
+            }
+            Basket = basket;
+            return PartialView("_Products", Basket);
         }
 
         protected override void Dispose(bool disposing)
@@ -273,18 +294,15 @@ namespace EasyERP.Controllers
             return product;
         }
 
-        private List<Product> GetBasketProduct()
+        private List<Basket> GetBasket(ICollection<ProductOrders> productOrders)
         {
-            List<Product> listProducts = new List<Product>();
-            if (NumberProducts != null)
+            List<Basket> basket = new List<Basket>();
+            foreach (ProductOrders item in productOrders)
             {
-                string[] numbers = NumberProducts.TrimEnd(',').Split(',');
-                foreach (string number in numbers)
-                {
-                    listProducts.Add(GetProductId(int.Parse(number)));
-                }
+                Product product = db.Products.Find(item.ProductId);
+                basket.Add(new Basket() { Product = product, Amount = item.Amount, ProductId = item.ProductId });
             }
-            return listProducts;
+            return basket;
         }
     }
 }

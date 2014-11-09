@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace EasyERP.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         // GET: Reports

@@ -39,6 +39,6 @@ namespace EasyERP.Models
         [DisplayName("Opis produktu")]
         public string Description { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<ProductOrders> ProductOrder { get; set; }
     }
 }

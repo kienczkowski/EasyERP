@@ -12,7 +12,7 @@ namespace EasyERP.Models
     {
         public Order()
         {
-            Products = new List<Product>();
+            ProductOrders = new List<ProductOrders>();
         }
         [Key]
         [DisplayName("Numer zamówienia")]
@@ -33,6 +33,6 @@ namespace EasyERP.Models
         public decimal PurchasePrice { get; set; }
 
         public virtual Client Client { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<ProductOrders> ProductOrders { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace EasyERP.Models.HelpModels
         {
             Orders = new List<Order>();
             Products = new List<Product>();
-            Basket = new List<Product>();
+            Basket = new List<Basket>();
             Clients = new List<Client>();
             Order = new Order();
         }
@@ -22,7 +22,7 @@ namespace EasyERP.Models.HelpModels
         public Order Order { get; set; }
         public List<Order> Orders { get; set; }
         public List<Product> Products { get; set; }
-        public List<Product> Basket { get; set; }
+        public List<Basket> Basket { get; set; }
         public IEnumerable<Client> Clients { get; set; }
     }
 }

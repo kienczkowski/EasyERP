@@ -295,3 +295,13 @@ function ajaxHelper(uri, method, data) {
 
     });
 }
+
+function AmountCheck(e)
+{
+    ///Orders/AddProductToBasket?ProductId=3&ClientId=0&Amount=1&Amount=10&Amount=10&Amount=10
+    var href = "/Orders/AddProductToBasket?ProductId=3&ClientId=0";
+    var name = '#Amount' + $(e).attr("ProductId");
+    href = href + "&Amount=" + $(name).val();
+    $(e).attr("href", href);
+    return true;
+}
