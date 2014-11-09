@@ -9,6 +9,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.ProductId)
+    @Html.HiddenFor(model => model.Code)
 
     <h1 class="bold">Edytuj produkt</h1>
     @Html.ActionLink("Anuluj", "Index", "Products", "", htmlAttributes: new { @class = "button" })

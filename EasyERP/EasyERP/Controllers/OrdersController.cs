@@ -113,7 +113,7 @@ namespace EasyERP.Controllers
                         newOrder.StartDate = DateTime.Now;
                         if (model.Order.EndDate != null)
                             newOrder.EndDate = model.Order.EndDate;
-                        newOrder.Seller = this.Session["FirstName"] != null && this.Session["LastName"] != null ? this.Session["FirstName"].ToString() + this.Session["LastName"].ToString() : "Brak";
+                        newOrder.Seller = this.Session["FirstName"] != null && this.Session["LastName"] != null ? this.Session["FirstName"].ToString() + " " + this.Session["LastName"].ToString() : "Brak";
                         newOrder.Client = client;
                         foreach (Basket product in basketProduct)
                         {
@@ -161,7 +161,8 @@ namespace EasyERP.Controllers
             model.Order = order;
             model.ClientId = order.Client.ClientId;
             model.Products = GetAllProducts();
-            model.Basket = GetBasket(order.ProductOrders);
+            Basket = GetBasket(order.ProductOrders);
+            model.Basket = Basket;
             return View(model);
         }
 
@@ -174,30 +175,38 @@ namespace EasyERP.Controllers
         {
             if (ModelState.IsValid)
             {
-                decimal sallary1 = 0;
-                decimal sallary2 = 0;
-                List<Basket> basketProduct = Basket;
-                if (basketProduct.Count == 0)
+                try
                 {
-                    model.Products = GetAllProducts();
-                    model.Orders = GetOrders(model.ClientId);
-                    model.ClientId = model.ClientId;
-                    throw new Exception("Nie wybrano żadengo produktu");
+                    decimal sallary1 = 0;
+                    decimal sallary2 = 0;
+                    List<Basket> basketProduct = Basket;
+                    if (basketProduct.Count == 0)
+                    {
+                        model.Products = GetAllProducts();
+                        model.Orders = GetOrders(model.ClientId);
+                        model.ClientId = model.ClientId;
+                        throw new Exception("Nie wybrano żadengo produktu");
+                    }
+                    Order newOrder = db.Orders.Find(model.Order.OrderId);
+                    newOrder.ProductOrders = new List<ProductOrders>();
+                    foreach (Basket item in basketProduct)
+                    {
+                        newOrder.ProductOrders.Add(new ProductOrders() { ProductId = item.ProductId, Amount = item.Amount, OrderId = newOrder.OrderId });
+                        Product product = db.Products.Find(item.ProductId);
+                        sallary1 += product.ListPrice;
+                        sallary2 += product.PurchasePrice;
+                    }
+                    newOrder.Seller = model.Order.Seller;
+                    newOrder.StartDate = model.Order.StartDate;
+                    newOrder.EndDate = model.Order.EndDate;
+                    db.Entry(newOrder).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
-                Order newOrder = db.Orders.Find(model.Order.OrderId);
-                newOrder.ProductOrders = new List<ProductOrders>();
-                foreach (Basket item in basketProduct)
+                catch (Exception ex)
                 {
-                    newOrder.ProductOrders.Add(new ProductOrders() { ProductId = item.ProductId, Amount = item.Amount, OrderId = newOrder.OrderId });
-                    Product product = db.Products.Find(item.ProductId);
-                    sallary1 += product.ListPrice;
-                    sallary2 += product.PurchasePrice;
+                    Basket = null;
                 }
-                newOrder.Seller = model.Order.Seller;
-                newOrder.StartDate = model.Order.StartDate;
-                newOrder.EndDate = model.Order.EndDate;
-                db.Entry(newOrder).State = EntityState.Modified;
-                db.SaveChanges();
+                Basket = null;
                 return RedirectToAction("Orders");
             }
             return View(model);
@@ -248,6 +257,8 @@ namespace EasyERP.Controllers
                     thisSame.Amount = Amount;
                     break;
                 }
+                else
+                    flag = true;
             }
             if (flag)
             {

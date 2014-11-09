@@ -56,8 +56,11 @@ namespace EasyERP.Controllers
         {
             if (ModelState.IsValid)
             {
-                product.Code = (db.Products.Max(m => m.ProductId) + 1).ToString();
                 db.Products.Add(product);
+                db.SaveChanges();
+                db.Entry(product).GetDatabaseValues();
+                product.Code = product.ProductId.ToString();
+                db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

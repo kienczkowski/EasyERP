@@ -135,7 +135,7 @@
                             Ilość: @Html.TextBox("Amount", "1", htmlAttributes: new { @name = "Amount", @id = "Amount" + product.ProductId })
                         </td>
                         <td align="center">
-                            @Ajax.ActionLink("Dodaj", "AddProductToBasket", new { ProductId = product.ProductId, ClientId = Model.ClientId}, new AjaxOptions { UpdateTargetId = "PanelProducts", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @id = "select", @onclick="AmountCheck(this);", @productId = product.ProductId})
+                            @Ajax.ActionLink("Dodaj", "AddProductToBasket", new { }, new AjaxOptions { UpdateTargetId = "PanelProducts", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @id = "select", @onclick = "AmountCheck(this);", @productId = product.ProductId, @ClientId = Model.ClientId})
                         </td>
                     </tr>
                 </tbody>

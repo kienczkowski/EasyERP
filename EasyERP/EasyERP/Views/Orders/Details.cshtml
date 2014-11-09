@@ -56,29 +56,4 @@
             </td>
         </tr>
     </table>
-    <table class="edit">
-        <thead>
-            <tr>
-                <th>Produkty</th>
-                <th>Ilość</th>
-                <th>Cena</th>
-                <th>Akcja</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (EasyERP.Models.Product product in @Model.Products)
-            {
-                <tr>
-                    <td>@Html.Raw(product.Name)</td>
-                    <td>@Html.Raw(product.Amount.ToString())</td>
-                    <td>@Html.Raw(product.PurchasePrice.ToString())</td>
-                </tr>
-            }
-            <tr class="empty">
-                <td> </td>
-                <td> </td>
-                <td> </td>
-            </tr>
-        </tbody>
-    </table>
 </div>

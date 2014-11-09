@@ -219,7 +219,11 @@ $(document).ready(function () {
         hide: {
             effect: "explode",
             duration: 1000
-        }
+        },
+        height: 250,
+        width: 450,
+        resizable: false,
+        modal: true
     });
 
     $("#open-dialog").click(function () {
@@ -299,7 +303,9 @@ function ajaxHelper(uri, method, data) {
 function AmountCheck(e)
 {
     ///Orders/AddProductToBasket?ProductId=3&ClientId=0&Amount=1&Amount=10&Amount=10&Amount=10
-    var href = "/Orders/AddProductToBasket?ProductId=3&ClientId=0";
+    var href = "/Orders/AddProductToBasket?";
+    href += "ProductId=" + $(e).attr("ProductId");
+    href += "&ClientId=" + $(e).attr("ClientId");
     var name = '#Amount' + $(e).attr("ProductId");
     href = href + "&Amount=" + $(name).val();
     $(e).attr("href", href);
