@@ -10,6 +10,7 @@ else
     @Html.ActionLink("Anuluj", "AllClients", "", htmlAttributes: new { @class = "button" })
 }
 <input type="submit" value="Zapisz" class="button zapisz transition">
+@Html.HiddenFor(model => model.ClientId)
 <table>
     <tr>
         <td>Nazwa firmy</td>

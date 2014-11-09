@@ -4,7 +4,7 @@
     ViewBag.Title = "Edycja klienta";
 }
 
-@using (Html.BeginForm("EditClient", "Clients", FormMethod.Post, new { @id="dane-konta" }))
+@using (Html.BeginForm("EditClient", "Clients", new { @id=Model.ClientId }, FormMethod.Post, new { @id = "dane-konta" }))
 { 
     <h1 class="bold">Dane adresowe</h1>
     @Html.ActionLink("Anuluj", "DetailsClient", "Clients", new { id = Model.ClientId }, htmlAttributes: new { @class = "button" })
