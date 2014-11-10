@@ -20,7 +20,8 @@ namespace EasyERP.App_Start
                         "~/Scripts/js/kalendarz.js",
                         "~/Scripts/mainJS.js",
                         "~/Scripts/CommonAction.js",
-                        "~/Scripts/jquery.datetimepicker.js"));
+                        "~/Scripts/jquery.datetimepicker.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/Common").Include(
                 "~/Scripts/CommonAction.js",
@@ -32,7 +33,8 @@ namespace EasyERP.App_Start
                       "~/Content/style.css",
                       "~/Content/PagedList.css",
                       "~/Content/themes/base/all.css",
-                      "~/Content/themes/base/jquery.datetimepicker.css"));
+                      "~/Content/themes/base/jquery.datetimepicker.css"
+                      ));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

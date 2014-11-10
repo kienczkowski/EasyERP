@@ -11,3 +11,4 @@ $('input[type="datetime"]').datetimepicker({
     lang: 'pl',
     format: 'Y/m/d H:i:s'
 });
+

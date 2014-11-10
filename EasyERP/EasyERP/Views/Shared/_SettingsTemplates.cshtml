@@ -1,0 +1,50 @@
+﻿@model PagedList.IPagedList<EasyERP.Models.Template>
+@using PagedList.Mvc;
+
+<div id="produkty" class="mag">
+    <h1 class="bold">Szablony</h1>
+    @Html.ActionLink("Dodaj szablon", "Create", "Templates",null, htmlAttributes: new { @class = "button dodaj-klienta" })
+    <table class="magazyn">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().TemplateName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().EnteredOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().IsActive)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TemplateName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnteredOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edycja", "Edit", new { id = item.TemplateId }) |*@
+                        @Ajax.ActionLink("Usuń", "Delete", "Templates", new{ templateId = item.TemplateId}, new AjaxOptions { UpdateTargetId = "settings", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="13" align="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>

@@ -95,10 +95,11 @@ namespace EasyERP.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditClient(Client client)
+        public ActionResult EditClient(Client client, int? ClientId)
         {
             if (ModelState.IsValid)
             {
+                client.ClientId = ClientId ?? 0;
                 using (var db = new DBContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())

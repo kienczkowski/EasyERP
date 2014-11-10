@@ -6,7 +6,7 @@
 
 <div id="dane-konta">
     <h1 class="bold">Dane adresowe</h1>
-    @using (Html.BeginForm("EditClient", "Clients", FormMethod.Post))
+    @using (Html.BeginForm("EditClient", "Clients", new { ClientId = @Model.Client.ClientId }, FormMethod.Post))
     {
         <div id="AddEdit">
             @{Html.RenderPartial("_ClientDetails", Model.Client);}

@@ -26,5 +26,7 @@ namespace EasyERP.Context
             modelBuilder.Entity<ProductOrders>().HasKey(m => new { m.ProductId, m.OrderId });
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<EasyERP.Models.Template> Templates { get; set; }
     }
 }

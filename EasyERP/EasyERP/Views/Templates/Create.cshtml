@@ -1,0 +1,52 @@
+﻿@model EasyERP.Models.Template
+
+@{
+    ViewBag.Title = "Tworzenie szablonu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Templates", FormMethod.Post, new { enctype = "multipart/form-data", id = "produkty" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger alert" })
+
+    <h1 class="bold">Dodaj szablon</h1>
+    <input type="submit" value="Zapisz" class="button zapisz transition" />
+
+    <table class="edit">
+        <thead>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TemplateName, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TemplateName, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.TemplateFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    <input type="file" name="file" id="file" />
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.EnteredOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.EnteredOn, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.IsActive)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+

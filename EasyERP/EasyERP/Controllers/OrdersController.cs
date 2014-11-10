@@ -43,7 +43,11 @@ namespace EasyERP.Controllers
                 return View(orders.ToPagedList(pageNumber, Global.Global.pageSize));
             }
             else
-                return View(db.Orders.Where(o => o.Client.ClientId == clientId).ToList());
+            {
+                int pageNumber = page ?? 1;
+                List<Order> orders = db.Orders.Where(o => o.Client.ClientId == clientId).ToList();
+                return View(orders.ToPagedList(pageNumber, Global.Global.pageSize));
+            }
         }
 
         // GET: Orders/Details/5

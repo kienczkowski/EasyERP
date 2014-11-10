@@ -243,6 +243,7 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,6 +257,18 @@
     <Compile Include="Migrations\201411091312221_mig2.Designer.cs">
       <DependentUpon>201411091312221_mig2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411092238399_mig3.cs" />
+    <Compile Include="Migrations\201411092238399_mig3.Designer.cs">
+      <DependentUpon>201411092238399_mig3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411101317478_mig4.cs" />
+    <Compile Include="Migrations\201411101317478_mig4.Designer.cs">
+      <DependentUpon>201411101317478_mig4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411101835319_mig5.cs" />
+    <Compile Include="Migrations\201411101835319_mig5.Designer.cs">
+      <DependentUpon>201411101835319_mig5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Company.cs" />
@@ -268,6 +281,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductOrders.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\Template.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\LogErrorRepo.cs" />
@@ -315,6 +329,9 @@
     <Content Include="Views\Orders\Orders.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Shared\_Products.cshtml" />
+    <Content Include="Views\Shared\_SettingsTemplates.cshtml" />
+    <Content Include="Views\Shared\_SettingsTemplateCreate.cshtml" />
+    <Content Include="Views\Templates\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -331,6 +348,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411091312221_mig2.resx">
       <DependentUpon>201411091312221_mig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411092238399_mig3.resx">
+      <DependentUpon>201411092238399_mig3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411101317478_mig4.resx">
+      <DependentUpon>201411101317478_mig4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411101835319_mig5.resx">
+      <DependentUpon>201411101835319_mig5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
