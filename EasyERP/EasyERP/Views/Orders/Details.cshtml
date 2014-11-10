@@ -57,3 +57,7 @@
         </tr>
     </table>
 </div>
+<div id="operacje">
+    <h2 class="bold">Operacje</h2>
+    @Html.ActionLink("Generuj fakturę", "CreateInvoice", new { orderId = Model.OrderId })
+</div>

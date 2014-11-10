@@ -10,6 +10,8 @@ using EasyERP.Context;
 using EasyERP.Models;
 using EasyERP.Models.HelpModels;
 using PagedList;
+using Aspose.Words;
+using System.IO;
 
 namespace EasyERP.Controllers
 {
@@ -271,6 +273,35 @@ namespace EasyERP.Controllers
             }
             Basket = basket;
             return PartialView("_Products", Basket);
+        }
+
+        [HttpGet]
+        public ActionResult CreateInvoice(int orderId)
+        {
+            byte[] templateByte = db.Templates.Where(t => t.IsActive == true).Select(s => s.TemplateFile).FirstOrDefault();
+            byte[] contents = null;
+            Order order = db.Orders.Find(orderId);
+            if(templateByte == null)
+            {
+                ViewBag.Error = "Nie aktualnie żadnych aktywnych szablonów faktur";
+                return View("Details", order);
+            }
+            MemoryStream msIn = new MemoryStream(templateByte);
+            Document docTemplate = new Document(msIn);
+            msIn.Dispose();
+            msIn.Close();
+            //zwracamy plik do użytkownika
+            Company company = db.Companies.FirstOrDefault();
+            docTemplate.MailMerge.Execute(new string[] { "NameCompany", "DateNow" }, new object[] { company.NameCompany, DateTime.Now.ToString("dd-MM-yyyy") });
+            using(MemoryStream msOut = new MemoryStream())
+            {
+                docTemplate.Save(msOut, SaveFormat.Pdf);
+                contents = msOut.ToArray();
+            }
+            msIn.Dispose();
+            msIn.Close();
+            Response.AddHeader("Content-Disposition", "inline; filename=test.pdf");
+            return File(contents, "application/pdf");
         }
 
         protected override void Dispose(bool disposing)
