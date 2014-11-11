@@ -342,7 +342,7 @@ namespace EasyERP.Controllers
                 dr["Description"] = item.Key.Description;
                 dr["PurchasePrice"] = item.Key.PurchasePrice;
                 dr["ProductDiscount"] = "0%";
-                suma += item.Key.PurchasePrice;
+                suma += (item.Key.PurchasePrice * item.Value);
                 dtProducts.Rows.Add(dr);
             }
 
