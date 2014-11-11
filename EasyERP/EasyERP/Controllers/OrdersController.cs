@@ -332,6 +332,8 @@ namespace EasyERP.Controllers
             dtProducts.Columns.Add("PurchasePrice");
             dtProducts.Columns.Add("ProductDiscount");
 
+            decimal suma = 0;
+
             foreach (KeyValuePair<Product, int> item in products)
             {
                 DataRow dr = dtProducts.NewRow();
@@ -340,9 +342,14 @@ namespace EasyERP.Controllers
                 dr["Description"] = item.Key.Description;
                 dr["PurchasePrice"] = item.Key.PurchasePrice;
                 dr["ProductDiscount"] = "0%";
+                suma += item.Key.PurchasePrice;
                 dtProducts.Rows.Add(dr);
             }
-            
+
+            freeMergeFields.Add("Suma", suma.ToString());
+            freeMergeFields.Add("Discount", "0%");
+            freeMergeFields.Add("tax", "23%");
+
             docTemplate.MailMerge.Execute(freeMergeFields.Keys.ToArray(), freeMergeFields.Values.ToArray());
             docTemplate.MailMerge.ExecuteWithRegions(dtProducts);
 
@@ -355,6 +362,10 @@ namespace EasyERP.Controllers
             msIn.Close();
             Response.AddHeader("Content-Disposition", "inline; filename=test.pdf");
             return File(contents, "application/pdf");
+
+            //doc
+            //Response.AddHeader("Content-Disposition", "inline; filename=test.doc");
+            //return File(contents, "aplication/force-download");
         }
 
         protected override void Dispose(bool disposing)
