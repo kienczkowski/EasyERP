@@ -292,7 +292,60 @@ namespace EasyERP.Controllers
             msIn.Close();
             //zwracamy plik do użytkownika
             Company company = db.Companies.FirstOrDefault();
-            docTemplate.MailMerge.Execute(new string[] { "NameCompany", "DateNow" }, new object[] { company.NameCompany, DateTime.Now.ToString("dd-MM-yyyy") });
+            Client client = db.Clients.Find(order.Client.ClientId);
+            List<ProductOrders> productOrders = db.ProductOrders.Where(p => p.OrderId == order.OrderId).ToList();
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
+            foreach (ProductOrders item in productOrders)
+            {
+                Product product = db.Products.Find(item.ProductId);
+                products.Add(product, item.Amount);
+            }
+            Dictionary<string, string> freeMergeFields = new Dictionary<string, string>();
+
+            freeMergeFields.Add("NameCompany", company.NameCompany);
+            freeMergeFields.Add("DateNow", DateTime.Now.ToString("dd-MM-yyyy"));
+            freeMergeFields.Add("Address", company.Address);
+            freeMergeFields.Add("PostalCode", "");
+            freeMergeFields.Add("City", company.Country);
+            freeMergeFields.Add("WebSiteAddress", company.WebSiteAddress);
+            freeMergeFields.Add("PhoneNumber", company.PhoneNumber);
+            freeMergeFields.Add("FaxNumber", company.FaxNumber);
+            freeMergeFields.Add("Email", company.Email);
+            freeMergeFields.Add("InvoiceNumber", order.OrderId.ToString());
+            freeMergeFields.Add("ClientName", client.FirstName +  " " + client.LastName);
+            freeMergeFields.Add("ClientCompany", client.Company);
+            freeMergeFields.Add("ClientId", client.ClientId.ToString());
+            freeMergeFields.Add("ClientAddress", client.Address);
+            freeMergeFields.Add("ClientPostalCode", client.CountryCode);
+            freeMergeFields.Add("ClientCity", client.City);
+            freeMergeFields.Add("ClientPhoneNumber", client.Phone);
+            freeMergeFields.Add("PayDate", order.EndDate.Value.Date.ToString("dd-MM-yyyy"));
+            freeMergeFields.Add("Seller", order.Seller);
+            freeMergeFields.Add("DeliverDate", DateTime.Now.AddDays(3).ToString("dd-MM-yyyy"));
+            freeMergeFields.Add("MethodSend", "Poczta Polska");
+
+            DataTable dtProducts = new DataTable();
+            dtProducts.TableName = "Products";
+            dtProducts.Columns.Add("Amount");
+            dtProducts.Columns.Add("ProductId");
+            dtProducts.Columns.Add("Description");
+            dtProducts.Columns.Add("PurchasePrice");
+            dtProducts.Columns.Add("ProductDiscount");
+
+            foreach (KeyValuePair<Product, int> item in products)
+            {
+                DataRow dr = dtProducts.NewRow();
+                dr["Amount"] = item.Value;
+                dr["ProductId"] = item.Key.ProductId.ToString();
+                dr["Description"] = item.Key.Description;
+                dr["PurchasePrice"] = item.Key.PurchasePrice;
+                dr["ProductDiscount"] = "0%";
+                dtProducts.Rows.Add(dr);
+            }
+            
+            docTemplate.MailMerge.Execute(freeMergeFields.Keys.ToArray(), freeMergeFields.Values.ToArray());
+            docTemplate.MailMerge.ExecuteWithRegions(dtProducts);
+
             using(MemoryStream msOut = new MemoryStream())
             {
                 docTemplate.Save(msOut, SaveFormat.Pdf);
