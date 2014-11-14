@@ -1,17 +1,36 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Raporty";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div id="produkty" class="mag">
     <h1 class="bold">Raporty</h1>
-    @Html.ActionLink("Raport dzienny", "Index", "", htmlAttributes: new { @class = "button dodaj" })
-    @Html.ActionLink("Raport miesięczny", "Index", "", htmlAttributes: new { @class = "button dodaj" })
-    @Html.ActionLink("Sprzedawca miesiąca", "Index", "", htmlAttributes: new { @class = "button dodaj" })
 </div>
-<div class="min-padding">
-    <canvas id="myChart" width="400" height="400"></canvas>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-5">
+                <a href="#" id="btnReport1" class="button">Najlepszy sprzedawca</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                @Html.ActionLink("Raport miesięczny", "Index", "", htmlAttributes: new { @class = "button dodaj", @id = "btnReport1" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                @Html.ActionLink("Sprzedawca miesiąca", "Index", "", htmlAttributes: new { @class = "button dodaj", @id = "btnReport1" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <canvas id="myChart" width="400" height="400">
+
+        </canvas>
+    </div>
+
 </div>
+
 
 

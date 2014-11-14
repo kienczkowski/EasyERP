@@ -20,7 +20,8 @@ namespace EasyERP.App_Start
                         "~/Scripts/js/kalendarz.js",
                         "~/Scripts/mainJS.js",
                         "~/Scripts/CommonAction.js",
-                        "~/Scripts/jquery.datetimepicker.js"
+                        "~/Scripts/jquery.datetimepicker.js",
+                        "~/Scripts/bootstrap.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/Common").Include(
@@ -46,12 +47,14 @@ namespace EasyERP.App_Start
                       "~/Content/themes/base/datepicker.css",
                       "~/Content/themes/base/progressbar.css",
                       "~/Content/themes/base/theme.css",
-                      "~/Content/datetimepicker.css"
+                      "~/Content/datetimepicker.css",
+                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-theme.css"
                       ));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
