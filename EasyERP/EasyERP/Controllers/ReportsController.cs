@@ -1,52 +1,52 @@
-﻿using System;
+﻿using EasyERP.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using EasyERP.Models;
 
 namespace EasyERP.Controllers
 {
     [Authorize]
     public class ReportsController : Controller
     {
+        DBContext db = new DBContext();
+
         // GET: Reports
         public ActionResult Index()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public string Report1()
+        public JsonResult Report1()
         {
             JsonResult json = new JsonResult();
-            
-            string data = "{
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
+            List<string> labels = new List<string>();
+            Dictionary<string, List<decimal>> data = new Dictionary<string, List<decimal>>();
+
+            List<User> usersList = db.Users.ToList();
+
+            foreach (User item in usersList)
+            {
+                //Add Label 
+                string seller = item.FirstName + " " + item.LastName;
+                labels.Add(seller);
+                List<decimal> ordersPrice = db.Orders.Where(o => o.Seller == seller).Select(o => o.PurchasePrice).ToList();
+                decimal Price = 0;
+                foreach (decimal price in ordersPrice)
                 {
-                    label: "My First dataset",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    Price += price;
+
                 }
-            ]
-        };"
-            return data;
+                data.Add(seller, new List<decimal>() { Price });
+
+            }
+            json.Data = data;
+            return json;
         }
     }
+
+
 }
