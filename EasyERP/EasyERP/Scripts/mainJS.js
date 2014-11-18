@@ -178,7 +178,7 @@ $(document).ready(function () {
             });
 
             var data = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: reportData.label,
             datasets: [
                 {
                     label: "My First dataset",
@@ -188,17 +188,7 @@ $(document).ready(function () {
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: reportData['Data1']
+                    data: reportData.value
                 }
             ]
         };
@@ -207,6 +197,83 @@ $(document).ready(function () {
             var myNewChart = new Chart(ctx).Bar(data, { responsive: false });
             return false;
         });
+
+        $("#btnReport2").click(function (e) {
+
+            var reportData;
+
+            $.ajax({
+                type: "POST",
+                url: "Reports/Report2",
+                data: {},
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    reportData = data;
+                },
+                error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText) },
+                async: false
+            });
+
+            var data = {
+                labels: reportData.label,
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: reportData.value
+                    }
+                ]
+            };
+
+            var ctx = document.getElementById("myChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Bar(data, { responsive: false });
+            return false;
+        });
+
+        $("#btnReport3").click(function (e) {
+
+            var reportData;
+
+            $.ajax({
+                type: "POST",
+                url: "Reports/Report3",
+                data: {},
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    reportData = data;
+                },
+                error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText) },
+                async: false
+            });
+
+            var data = {
+                labels: reportData.label,
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: reportData.value
+                    }
+                ]
+            };
+
+            var ctx = document.getElementById("myChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Bar(data, { responsive: false });
+            return false;
+        });
+
     }
 
 
